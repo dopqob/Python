@@ -51,9 +51,9 @@
 #         print(s1*-i + s2*(n+i-m))
 
 # 打印100以内斐波那契数列
-a = 0
-b = 1
-c = 0
+# a = 0
+# b = 1
+# c = 0
 # print(a, b, end=' ')
 # while a+b < 100:
 #     c = a + b
@@ -61,12 +61,17 @@ c = 0
 #     a = b
 #     b = c
 
-print(a, b, end=' ')
-for i in range(1, 101):
-    if i == a + b:
-        print(i, end=' ')
-        a = b
-        b = i
+# print(a, b, end=' ')
+# for i in range(1, 101):
+#     if i == a + b:
+#         print(i, end=' ')
+#         a = b
+#         b = i
 
 # 求斐波那契数列第101项
-
+a = 0
+b = 1
+for i in range(2, 102):
+    a, b = b, a+b
+    if i == 101:
+        print(b)
