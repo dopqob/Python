@@ -11,18 +11,62 @@
 #         print(str(ii) + 'x' + str(i) + '=' + str(n)),
 #     print('')
 
+# for i in range(1, 10):
+#     for j in range(1, i+1):
+#         print('{}x{}={:<2} '.format(j, i, j*i), end='\t')
+#     print()
+
+# for i in range(1, 10):
+#     s = ''
+#     for j in range(i, 10):
+#         s += '{}x{}={:<2} '.format(i, j, j*i)
+#     print(' '*7*i + s)
+
 # 打印菱形
 # n = int(input('>>>'))   # 请输入一个奇数
-# for i in range(1, n, 2):
-#     m1 = (n-i)/2
-#     print(' '*m1 + '*'*i + ' '*m1)
-# for j in range(n, 0, -2):
-#     m2 = (n-j)/2
-#     print(' '*m2 + '*'*j + ' '*m2)
+# m = n//2
+# s1, s2 = ' ', '*'
+# for i in range(-m, n-m):
+#     j = -i if i < 0 else i
+#     print(s1 * j + s2 * (n - 2*j))
+#   或者用绝对值
+#   print(s1 * abs(i) + s2 * (n - 2*abs(i)))
+# print()
+
+# 打印对顶三角
+# for i in range(-m, n-m):
+#     j = -i if i < 0 else i
+#     print(s1 * (m-j) + s2 * (2*j+1))
+#   或者用绝对值
+#   print(s1 * (m-abs(i)) + s2 * (2*abs(i)+1))
+# print()
+
+# 打印闪电
+# for i in range(-m, n-m):
+#     if i > 0:
+#         print(s1*m + s2*(n-m-i))
+#     elif i == 0:
+#         print(s2*n)
+#     else:
+#         print(s1*-i + s2*(n+i-m))
 
 # 打印100以内斐波那契数列
-a = 1
-for i in range(100):
-    a += i
-    print(a)
+a = 0
+b = 1
+c = 0
+# print(a, b, end=' ')
+# while a+b < 100:
+#     c = a + b
+#     print(c, end=' ')
+#     a = b
+#     b = c
+
+print(a, b, end=' ')
+for i in range(1, 101):
+    if i == a + b:
+        print(i, end=' ')
+        a = b
+        b = i
+
+# 求斐波那契数列第101项
 
