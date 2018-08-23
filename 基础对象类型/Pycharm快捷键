@@ -1,6 +1,10 @@
 Pycharm的一些快捷键
 
 编辑类：
+Ctrl + Shift + ↑ 当前行上移
+Ctrl + Shift + ↓ 当前行下移
+
+
 Ctrl + Space 基本的代码完成（类、方法、属性）
 Ctrl + Alt + Space 类名完成
 Ctrl + Shift + Enter 语句完成

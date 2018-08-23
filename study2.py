@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/8/17 11:21
 # @Author  : Bilon
-# @File    : stydy2.py
+# @File    : study2.py
 
 # 打印九九乘法表
 # for i in range(1, 10):
@@ -54,14 +54,16 @@
 # a = 0
 # b = 1
 # c = 0
-# print(a, b, end=' ')
-# while a+b < 100:
+# print(b, end=' ')
+# while True:
 #     c = a + b
+#     if c > 100:
+#         break
 #     print(c, end=' ')
 #     a = b
 #     b = c
 
-# print(a, b, end=' ')
+# print(b, end=' ')
 # for i in range(1, 101):
 #     if i == a + b:
 #         print(i, end=' ')
@@ -69,6 +71,14 @@
 #         b = i
 
 # 求斐波那契数列第101项
+# a = 0
+# b = 1
+# for i in range(2, 102):
+#     a, b = b, a+b
+#     if i == 101:
+#         print(b)
+
+# 打印10万以内的斐波那契数列
 a = 0
 b = 1
 for i in range(2, 102):
