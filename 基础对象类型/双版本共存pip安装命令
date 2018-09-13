@@ -1,0 +1,5 @@
+Python2.7
+py -2 -m pip list
+
+Python3.7
+py -3 -m pip list

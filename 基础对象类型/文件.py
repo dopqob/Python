@@ -13,6 +13,6 @@ output.close()                      # 手动关闭（当前文件收集完时会
 output.flush()                      # 把输出缓冲区刷到硬盘中，但不关闭文件
 anyFile.seek(N)                     # 修改文件位置到偏移量N处以便进行下一个操作
 for line in open('data'):           # 文件迭代器一行一行的读取
-    use line
+    # use line
 open('f.txt', encoding='latin-1')   # Python 3.0 Unicode文本文件（str字符串）
 open('f.bin', 'rb')                 # Python 3.0 二进制byte文件（bytes字符串）
