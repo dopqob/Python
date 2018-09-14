@@ -13,20 +13,20 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 # 连接远程机器 地址、端口、用户名密码
-# ssh.connect('116.62.170.64', 22, 'root', 'Ejuster2017')     #测试
-ssh.connect('116.62.123.240', 22, 'root', 'Jp*css*2017')    #预生产
+ssh.connect('116.62.170.64', 22, 'root', 'Ejuster2017')     #测试
+# ssh.connect('116.62.123.240', 22, 'root', 'Jp*css*2017')    #预生产
 
 # 测试环境
-# local = r'F:\ccloud2.0\ccloud-web-admin-test.war'
-# server = '/usr/www/ccloud-web-admin-test.war'
-# path = '/usr/www/ccloud.ejuster.com'
-# bakpath = '/usr/www/ccloud.ejuster.com.bak'
+local = r'F:\ccloud2.0\ccloud-web-admin-test.war'
+server = '/usr/www/ccloud-web-admin-test.war'
+path = '/usr/www/ccloud.ejuster.com'
+bakpath = '/usr/www/ccloud.ejuster.com.bak'
 
 # 预生产环境
-local = r'F:\ccloud2.0\ccloud-web-admin.war'
-server = '/usr/www/ccloud-web-admin.war'
-path = '/usr/www/juster.net.cn'
-bakpath = '/usr/www/juster.net.cn.bak'
+# local = r'F:\ccloud2.0\ccloud-web-admin.war'
+# server = '/usr/www/ccloud-web-admin.war'
+# path = '/usr/www/juster.net.cn'
+# bakpath = '/usr/www/juster.net.cn.bak'
 
 
 # 执行cmd重复性太高，可以抽象成函数
@@ -106,5 +106,5 @@ else:
 
 # 浏览器访问登录页面验证服务是否启动
 from selenium import webdriver
-# webdriver.Chrome().get('http://test.juster.com.cn/admin')       #测试
-webdriver.Chrome().get('http://www.juster.com.cn/admin')        #预生产
+webdriver.Chrome().get('http://test.juster.com.cn/admin')       #测试
+# webdriver.Chrome().get('http://www.juster.com.cn/admin')        #预生产

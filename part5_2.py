@@ -4,5 +4,5 @@
 # @Author  : Bilon
 # @File    : part5_2.py
 
-# from part5 import *
-import part5
+from selenium import webdriver
+webdriver.Chrome().get('http://www.baidu.com')

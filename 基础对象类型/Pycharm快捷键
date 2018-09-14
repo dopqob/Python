@@ -3,6 +3,8 @@ Pycharm的一些快捷键
 编辑类：
 Ctrl + Shift + ↑ 当前行上移
 Ctrl + Shift + ↓ 当前行下移
+Ctrl + Shift + Alt + J      批量选中
+Shift + F6                  批量修改
 
 
 Ctrl + Space 基本的代码完成（类、方法、属性）
