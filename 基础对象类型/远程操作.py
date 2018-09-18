@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/9/12 9:02
 # @Author  : Bilon
-# @File    : newtemp.py
+# @File    : 远程操作.py
 
 import paramiko
 
