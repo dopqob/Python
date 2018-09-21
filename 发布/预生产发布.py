@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# @Time    : 2018/9/12 10:52
+# @Time    : 2018/9/20 20:13
 # @Author  : Bilon
-# @File    : 测试发布.py
+# @File    : 预生产发布.py
 
 import paramiko, sys
+from selenium import webdriver
 
 # 创建SSHClient实例对象
 ssh = paramiko.SSHClient()
@@ -13,8 +14,8 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 # 连接远程机器 地址、端口、用户名密码
-# ssh.connect('116.62.170.64', 22, 'root', 'Ejuster2017')     #测试
-ssh.connect('116.62.123.240', 22, 'root', 'Jp*css*2017')    #预生产
+# ssh.connect('116.62.170.64', 22, 'root', 'Ejuster2017')     # 测试
+ssh.connect('116.62.123.240', 22, 'root', 'Jp*css*2017')    # 预生产
 
 # 测试环境
 # local = r'F:\ccloud2.0\ccloud-web-admin-test.war'
@@ -37,6 +38,7 @@ def remoteRun(cmd, printOutput = True):
     if printOutput:
         print(output + errinfo)
     return output + errinfo
+
 
 # 检查应用是否运行
 cmd = 'ps -ef | grep tomcat-ccloud | grep -v grep'
@@ -105,6 +107,5 @@ else:
     sys.exit()
 
 # 浏览器访问登录页面验证服务是否启动
-from selenium import webdriver
-webdriver.Chrome().get('http://test.juster.com.cn/admin')       #测试
-# webdriver.Chrome().get('http://www.juster.com.cn/admin')        #预生产
+
+webdriver.Chrome().get('http://www.juster.com.cn/admin')        # 预生产

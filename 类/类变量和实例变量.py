@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/9/17 15:46
 # @Author  : Bilon
-# @File    : test.py
+# @File    : 类变量和实例变量.py
 
 '''面向对象三要素'''
 '''
