@@ -4,7 +4,8 @@
 # @Author  : Bilon
 # @File    : 预生产发布.py
 
-import paramiko, sys
+import paramiko
+import sys
 from selenium import webdriver
 
 # 创建SSHClient实例对象
@@ -14,14 +15,7 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 # 连接远程机器 地址、端口、用户名密码
-# ssh.connect('116.62.170.64', 22, 'root', 'Ejuster2017')     # 测试
 ssh.connect('116.62.123.240', 22, 'root', 'Jp*css*2017')    # 预生产
-
-# 测试环境
-# local = r'F:\ccloud2.0\ccloud-web-admin-test.war'
-# server = '/usr/www/ccloud-web-admin-test.war'
-# path = '/usr/www/ccloud.ejuster.com'
-# bakpath = '/usr/www/ccloud.ejuster.com.bak'
 
 # 预生产环境
 local = r'F:\ccloud2.0\ccloud-web-admin.war'
@@ -57,7 +51,7 @@ if '-Dcatalina.home=/usr/local/tomcat-ccloud' in output:
     # 获取进程id
     pid = parts[1]
 
-    # 杀掉进程
+    # 结束进程
     output = remoteRun(f'kill -9 {pid}')
     if '-Dcatalina.home=/usr/local/tomcat-ccloud' in output:
         print('无法杀死进程！！！')
@@ -107,5 +101,4 @@ else:
     sys.exit()
 
 # 浏览器访问登录页面验证服务是否启动
-
 webdriver.Chrome().get('http://www.juster.com.cn/admin')        # 预生产

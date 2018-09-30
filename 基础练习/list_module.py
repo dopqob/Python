@@ -33,5 +33,4 @@ def listing(module, verbose=True):
         print(sepline)
 
 if __name__ == '__main__':
-    import list_module
     listing(list_module)

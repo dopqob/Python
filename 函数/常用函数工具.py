@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/8/30 16:58
 # @Author  : Bilon
-# @File    : 高级函数.py
+# @File    : 常用函数工具.py
 
 
 # 常用函数工具
