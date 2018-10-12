@@ -1,6 +1,8 @@
 Pycharm的一些快捷键
 
 编辑类：
+Ctrl + D    复制
+Ctrl + Y    删除
 Ctrl + Shift + ↑ 当前行上移
 Ctrl + Shift + ↓ 当前行下移
 Ctrl + Shift + Alt + J      批量选中

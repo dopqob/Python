@@ -9,7 +9,7 @@ import json
 
 requests = {}
 requests['url'] = ''
-requests['headers'] = ''
+requests['headers'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.92 Safari/537.36'
 
 def film_info(file_name):
     # 定义一个容器来管理不同的start部分

@@ -1,0 +1,6 @@
+# 查看package和activity
+
+# 先用adb运行下面命令
+adb shell "logcat|grep -i ActivityManager.*Displayed"
+
+# 然后运行手机上的程序，就能看到package和activity
