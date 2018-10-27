@@ -4,7 +4,7 @@
 # @Author  : Bilon
 # @File    : 代码结构系列一.py
 
-'''简洁易懂系列'''
+'''Python学习笔记'''
 
 '''快速构成一个字典序列'''
 print(dict(zip('abcd',range(4))))
