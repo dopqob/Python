@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a0878e4-d4f5-49a4-9c35-fcf5f247211f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/o_p_q_o.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python学习笔记/test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python学习笔记/字典里的5个黑魔法.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python学习笔记/异常处理.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python学习笔记/文件常用场景和用法.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Python学习笔记/文件批量处理.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/发布/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/文本资料/Sublime快捷键" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Python.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Appium/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baike_spider/html_outputer.py" beforeDir="false" afterPath="$PROJECT_DIR$/baike_spider/html_outputer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baike_spider/spider_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/baike_spider/spider_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/发布/清理Redis.py" beforeDir="false" afterPath="$PROJECT_DIR$/发布/清理Redis.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/爬虫/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python学习笔记/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Python学习笔记/异常处理.py" beforeDir="false" afterPath="$PROJECT_DIR$/异常的设计/异常处理.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/爬取豆瓣.py" beforeDir="false" afterPath="$PROJECT_DIR$/爬虫/爬取豆瓣.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +107,7 @@
           <entry key="new_abc1109" value="1" />
           <entry key="nginx操作" value="3" />
           <entry key="notes" value="1" />
-          <entry key="py" value="139" />
+          <entry key="py" value="140" />
           <entry key="pyth23987on" value="1" />
           <entry key="txt" value="8" />
           <entry key="三种等待方式" value="1" />
@@ -138,7 +128,7 @@
           <entry key="JSON" value="1" />
           <entry key="Markdown" value="4" />
           <entry key="PLAIN_TEXT" value="43" />
-          <entry key="Python" value="139" />
+          <entry key="Python" value="140" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -153,7 +143,7 @@
           <entry key="nginx操作" value="27" />
           <entry key="notes" value="2" />
           <entry key="py" value="155321" />
-          <entry key="txt" value="194" />
+          <entry key="txt" value="197" />
           <entry key="双版本共存pip安装命令" value="59" />
           <entry key="字符串" value="466" />
           <entry key="文件" value="735" />
@@ -161,7 +151,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="1883" />
+          <entry key="PLAIN_TEXT" value="1886" />
           <entry key="Python" value="156987" />
         </counts>
       </usages-collector>
@@ -218,10 +208,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Python学习笔记/文件批量处理.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1197">
+            <state relative-caret-position="806">
               <caret line="66" selection-start-line="66" selection-end-line="66" />
               <folding>
                 <element signature="e#407#423#0" expanded="true" />
@@ -232,16 +222,7 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Python学习笔记/test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Python学习笔记/异常处理.py">
+        <entry file="file://$PROJECT_DIR$/异常的设计/异常处理.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1710">
               <caret line="90" column="29" selection-start-line="90" selection-start-column="29" selection-end-line="90" selection-end-column="29" />
@@ -249,7 +230,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/文本资料/Sublime快捷键">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="570">
@@ -338,7 +319,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="345" />
     <option name="y" value="59" />
     <option name="width" value="1333" />
@@ -1449,13 +1430,20 @@
       <option name="project" value="LOCAL" />
       <updated>1540635924887</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="2018/11/06">
+      <created>1541497708513</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1541497708513</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15933476" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2446352" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -1496,7 +1484,8 @@
     <MESSAGE value="2018/09/21" />
     <MESSAGE value="2018/10/12" />
     <MESSAGE value="2018/10/27" />
-    <option name="LAST_COMMIT_MESSAGE" value="2018/10/27" />
+    <MESSAGE value="2018/11/06" />
+    <option name="LAST_COMMIT_MESSAGE" value="2018/11/06" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1574,7 +1563,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/爬取豆瓣.py">
+    <entry file="file://$PROJECT_DIR$/爬虫/爬取豆瓣.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
@@ -1757,13 +1746,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1176">
-          <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/发布/清理Redis.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -1814,25 +1796,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Python学习笔记/文件批量处理.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1197">
-          <caret line="66" selection-start-line="66" selection-end-line="66" />
-          <folding>
-            <element signature="e#407#423#0" expanded="true" />
-            <marker date="1540890548408" expanded="true" signature="1723:1911" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Python学习笔记/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Python学习笔记/异常处理.py">
+    <entry file="file://$PROJECT_DIR$/异常的设计/异常处理.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1710">
           <caret line="90" column="29" selection-start-line="90" selection-start-column="29" selection-end-line="90" selection-end-column="29" />
@@ -1843,6 +1807,31 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="30" column="15" selection-start-line="30" selection-start-column="15" selection-end-line="30" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="730">
+          <caret line="73" column="16" selection-start-line="73" selection-start-column="16" selection-end-line="73" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Python学习笔记/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="13" lean-forward="true" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Python学习笔记/文件批量处理.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="806">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
+          <folding>
+            <element signature="e#407#423#0" expanded="true" />
+            <marker date="1540890548408" expanded="true" signature="1723:1911" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
