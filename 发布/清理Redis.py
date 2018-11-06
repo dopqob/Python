@@ -10,4 +10,4 @@ port = 6380
 pwd = 'Jiayan@2018*hjx'
 db = 0
 
-r = Redis(host, port, pwd, db)
+r = Redis(host, port, pwd, decode_responses=True)

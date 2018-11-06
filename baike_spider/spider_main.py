@@ -40,4 +40,4 @@ class SpiderMain(object):
 if __name__ == '__main__':
     root_url = 'https://baike.baidu.com/item/Python'
     obj_spider = SpiderMain()
-    obj_spider.craw(root_url, 100)
+    obj_spider.craw(root_url, 10)
