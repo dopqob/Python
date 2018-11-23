@@ -17,8 +17,9 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect('116.62.170.64', 22, 'root', 'Ejuster2017')     # 测试
 
 # 测试环境
-local = r'F:\ccloud2.0\ccloud-web-admin-test.war'
-server = '/usr/www/ccloud-web-admin-test.war'
+local = r'C:\Users\o_p_q_o\GitHub\ccloudv2\ccloud-web-admin\target\ccloud-web-admin-0.0.1.war'
+# local = r'C:\Users\o_p_q_o\Desktop\ccloud-web-admin-0.0.1.war'    # 桌面
+server = '/usr/www/ccloud-web-admin-0.0.1.war'
 path = '/usr/www/ccloud.ejuster.com'
 bakpath = '/usr/www/ccloud.ejuster.com.bak'
 

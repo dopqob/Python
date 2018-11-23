@@ -35,8 +35,5 @@ fn(3, 5, a=1, b='python')           # error
 fn(7, 9, y=5, x=3, a=1, b='python')
 
 # 另一种写法
-
-
 def fn(*, x, y):    # 等价于def fn(*args, x, y)
     print(x, y)
-

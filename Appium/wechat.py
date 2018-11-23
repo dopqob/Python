@@ -85,6 +85,7 @@ class wxTests:
 
         # 进入聚合客户列表
         # WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(By.ID, "customerVisits"))
+        # 等待 customerVisits 加载完毕，最多等10秒
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id("customerVisits"))
         self.driver.find_element_by_id("customerVisits").click()
         sleep(3)

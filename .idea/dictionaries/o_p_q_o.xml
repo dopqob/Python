@@ -2,11 +2,19 @@
   <dictionary name="o_p_q_o">
     <words>
       <w>bilon</w>
+      <w>chrismas</w>
       <w>fileinput</w>
+      <w>getpid</w>
       <w>happend</w>
+      <w>makebold</w>
+      <w>makeitalic</w>
       <w>rmtree</w>
       <w>shutil</w>
       <w>subfolder</w>
+      <w>tencent</w>
+      <w>webview</w>
+      <w>wechat</w>
+      <w>yeild</w>
     </words>
   </dictionary>
 </component>

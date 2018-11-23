@@ -18,8 +18,8 @@ ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect('116.62.123.240', 22, 'root', 'Jp*css*2017')    # 预生产
 
 # 预生产环境
-local = r'F:\ccloud2.0\ccloud-web-admin.war'
-server = '/usr/www/ccloud-web-admin.war'
+local = r'C:\Users\o_p_q_o\GitHub\ccloudv2\ccloud-web-admin\target\ccloud-web-admin-0.0.1.war'
+server = '/usr/www/ccloud-web-admin-0.0.1.war'
 path = '/usr/www/juster.net.cn'
 bakpath = '/usr/www/juster.net.cn.bak'
 
