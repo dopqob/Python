@@ -60,7 +60,7 @@ class wxTests:
 
         # 查找'订单云平台'是否存在，如果10秒内没有找到提示超时并退出
         try:
-            self.driver.find_element_by_id(ent_id).click()
+            self.driver.find_elements_by_id(ent_id)[1].click()
         except TimeoutError:
             print('没有找到订单云平台入口')
             self.driver.quit()
@@ -74,11 +74,17 @@ class wxTests:
             if webview in contexts:
                 # 切换到H5页面的webview
                 self.driver.switch_to.context('WEBVIEW_com.tencent.mm:tools')
+                handles = self.driver.window_handles  # 获取当前窗口句柄
+                if len(handles) > 1:  # 如果有多个句柄，切换到最后一个
+                    self.driver.switch_to.window(handles[-1])
             else:
                 sleep(5)
                 contexts = self.driver.contexts
                 print('第2次获取到的上下文： {}'.format(contexts))
                 self.driver.switch_to.context('WEBVIEW_com.tencent.mm:tools')
+                handles = self.driver.window_handles  # 获取当前窗口句柄
+                if len(handles) > 1:  # 如果有多个句柄，切换到最后一个
+                    self.driver.switch_to.window(handles[-1])
         except Exception:
             print('视图切换失败，用例提前结束')
             self.driver.quit()
@@ -109,28 +115,29 @@ class wxTests:
         # sleep(3)
 
         # 循环三次 拍三张照片
-        for i in range(1):
+        for i in range(3):
             shot_xpath = '//*[@id="form"]/section[2]/div[3]/div/div/div/div/div'
             # WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath('//div[contains(text(),"选择图片")]'))
             # self.driver.find_element_by_xpath('//div[contains(text(),"选择图片")]').click()
 
-            try:
-                WebDriverWait(self.driver, 10).until(
-                    lambda x: x.find_element_by_xpath(shot_xpath))
-                self.driver.find_element_by_xpath(shot_xpath).click()
-            except Exception:
-                print('没有找到添加图片按钮，3秒后再次查找')
-                sleep(3)
-                self.driver.find_element_by_xpath(shot_xpath).click()
-            except:
-                print('找不到添加图片按钮，用例提前结束')
-                self.driver.quit()
+            # try:
+            WebDriverWait(self.driver, 10).until(
+                lambda x: x.find_element_by_xpath(shot_xpath))
+            self.driver.find_element_by_xpath(shot_xpath).click()
+            # except Exception:
+            #     print('没有找到添加图片按钮，3秒后再次查找')
+            #     sleep(3)
+            #     self.driver.find_element_by_xpath(shot_xpath).click()
+            # except:
+            #     print('找不到添加图片按钮，用例提前结束')
+            #     self.driver.quit()
 
             self.driver.switch_to.context("NATIVE_APP")
 
-            self.driver.find_element_by_id('com.android.gallery3d:id/shutter_button').click()
-            # sleep(3)
-            self.driver.find_element_by_id('com.android.gallery3d:id/image_capture_done_img').click()
+            # self.driver.find_element_by_id('com.android.gallery3d:id/shutter_button').click()
+            # self.driver.find_element_by_id('com.android.gallery3d:id/image_capture_done_img').click()
+            self.driver.find_element_by_id('com.android.camera:id/shutter_button').click()  # Vivo x9
+            self.driver.find_element_by_id('com.android.camera:id/done_button').click()  # Vivo x9
             sleep(3)
 
             self.driver.switch_to.context('WEBVIEW_com.tencent.mm:tools')
@@ -163,7 +170,7 @@ class wxTests:
 
 if __name__ == '__main__':
     meizu = wxTests()
-    for i in range(10):
+    for i in range(1):
         print('{0} 第 {1} 次执行开始 {2}'.format('-'*20, i+1, '-'*20), end='\n')
         meizu.setup()
         print('{0} 第 {1} 次执行完毕 {2}'.format('-'*20, i+1, '-'*20), end='\n\n')

@@ -3,8 +3,12 @@
 # @Time    : 2018/10/11 11:17
 # @Author  : Bilon
 # @File    : test.py
+import datetime
+import random
+from Appium.setup import my_print, Setup
 
 
-from Appium.ccloudinit import my_print, CcloudInit
+num = random.randint(0, 2)
+my_print(num)
 
-my_print('好的呢', '你说呢')
+print(datetime.datetime.now())
