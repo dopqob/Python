@@ -3,6 +3,9 @@
 # @Time    : 2018/11/27 19:37
 # @Author  : Bilon
 # @File    : wrapper.py
+from functools import wraps
+import logging
+
 
 def getImage(function):
     @wraps(function)
