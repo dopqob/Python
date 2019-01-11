@@ -30,10 +30,15 @@ def create_gbk(length):
     """
     str_list = []
     for l in range(length):
-        head = random.randint(0xb0, 0xf7)
-        body = random.randint(0xa1, 0xfe)
+        # 6千多常用汉字,生僻字还是很多
+        # head = random.randint(0xb0, 0xf7)
+        # body = random.randint(0xa1, 0xfe)
+
+        # 3755个常用汉字
+        head = 0xa0 + random.randint(16, 56)
+        body = 0xa0 + random.randint(1, 95)
         val = f'{head:x}{body:x}'
-        s = bytes.fromhex(val).decode('gb2312')
+        s = bytes.fromhex(val).decode('gb2312', 'ignore')  # 使用‘ignore’属性忽略非法字符
         str_list.append(s)
     return ''.join(str_list)
 
@@ -122,10 +127,29 @@ names = ['的', '一', '是', '了', '我', '不', '人', '在', '他', '有', '
          '奶', '雄', '升', '碃', '编', '典', '袋', '莱', '含', '盛', '济', '蒙', '棋', '端', '腿', '招', '释', '介', '烧', '误',
          '乾', '坤']
 
-
+# 随机生成中文名
 def create_name():
     surname = surnames[random.randint(0, len(surnames)-1)]
     name = ''
     for _ in range(random.randint(1,2)):
         name += names[random.randint(0, len(names)-1)]
     return surname + name
+
+
+# 通过生成器处理嵌套列表的方法
+def generate(lst):
+    for sublst in lst:
+        try:
+            try:  # 验证元素是否为字符串
+                sublst + ''
+            except:  # 如果发生异常（不是字符串）
+                pass  # 继续执行下方的for循环
+            else:  # 否则抛出异常，被外层except捕获。
+                raise Exception
+            for element in generate(sublst):
+                yield element
+
+        except:
+            yield sublst
+
+# print(list(getattr(lst)))     # 用法

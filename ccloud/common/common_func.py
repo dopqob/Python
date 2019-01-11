@@ -6,10 +6,11 @@
 import os
 import random
 import time
+import logging
 from selenium.webdriver.support.wait import WebDriverWait
-from common_tools import format_print
 from ccloud.common.desired_caps import appium_desired
 from ccloud.common.baseView import BaseView
+# from selenium.webdriver.common.by import By
 
 
 def screenshot_error(func):
@@ -21,7 +22,7 @@ def screenshot_error(func):
             func(self, *args, **kwargs)
         except Exception as e:
             self.take_screenshot(name)  # 封装的截图方法
-            format_print(name, e)
+            logging.error(e)
             raise e
 
     return _screenshot_error
@@ -33,13 +34,16 @@ class Common(BaseView):
     def enter_ccloud(self):
         """执行用例的前提条件，先进入应用"""
         self.enter_wechat_official_account(self.official_account_id, '武汉珈研')  # 进入指定微信公众号
-        self.enter_app(self.application_id)     # 进入应用
+        self.enter_applet(self.application_id)     # 进入应用
         self.swich_webview(self.h5_context)     # 切换到h5视图
         self.select_accout('华中科技')          # 选择账套
 
     @screenshot_error
     def enter_wechat_official_account(self, account_id, account_name):
         """进入公众号"""
+
+        logging.info('========== enter_wechat_official_account ==========')
+
         elements = self.driver.find_elements_by_id(account_id)
         if elements:
             for e in elements:
@@ -47,7 +51,8 @@ class Common(BaseView):
                     e.click()
                     break
             else:
-                raise('消息列表没有该公众号')
+                logging.warning('消息列表没有该公众号')
+                raise Exception('消息列表没有该公众号')
 
     def take_screenshot(self, img_name):
         """
@@ -56,6 +61,8 @@ class Common(BaseView):
         Usage:
              device.take_screenshot('个人主页')   #实际截图保存的结果为：2018-11-28_15_24_58_个人主页.png
         """
+        logging.info('========== take_screenshot ==========')
+
         try:
             if self.driver.current_context != 'NATIVE_APP':
                 self.driver.switch_to.context('NATIVE_APP')
@@ -68,13 +75,16 @@ class Common(BaseView):
                 os.makedirs(shot_path)
             self.driver.get_screenshot_as_file(filename)
         except Exception as e:
-            format_print('尝试截图失败', e)
+            logging.warning('尝试截图失败', e)
 
     @screenshot_error
-    def enter_app(self, app_id):
+    def enter_applet(self, app_id):
         """进入订单云平台"""
-        # self.driver.find_element_by_id(app_id).click()     # Meizu MX3
-        self.driver.find_elements_by_id(app_id)[1].click()   # Vivo x9
+
+        logging.info('========== enter_applet ==========')
+
+        self.driver.find_element_by_id(app_id).click()     # Meizu MX3
+        # self.driver.find_elements_by_id(app_id)[0].click()   # Vivo x9
 
     @screenshot_error
     def swich_webview(self, webview):
@@ -82,7 +92,7 @@ class Common(BaseView):
         切换视图
         :param webview: 视图名称
         """
-        if webview == 'NATIVE_APP':
+        if webview == self.context:
             self.driver.switch_to.context(webview)
         else:
             if webview not in self.driver.contexts:
@@ -111,8 +121,11 @@ class Common(BaseView):
             sets[0].click()
 
     @screenshot_error
-    def go_home(self):
+    def return_home_page(self):
         """返回首页"""
+
+        logging.info('========== return_home_page ==========')
+
         time.sleep(1)
         if self.is_element_exist('.wy-foot-menu>a:first-child'):
             self.driver.find_element_by_css_selector('.wy-foot-menu a:first-child').click()
@@ -123,32 +136,43 @@ class Common(BaseView):
     @screenshot_error
     def go_mycenter(self):
         """进入个人中心"""
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_css_selector('.wy-foot-menu>a:last-child'))
-        self.driver.find_element_by_css_selector('.wy-foot-menu>a:last-child').click()
+
+        logging.info('========== go_mycenter ==========')
+
+        css = '.wy-foot-menu>a:last-child'
+        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_css_selector(css))
+        self.driver.find_element_by_css_selector(css).click()
 
     @screenshot_error
-    def go_func_group_page(self, delay=3):
+    def go_func_group_page(self):
         """
         进入(聚合)客户列表并随机选择一个客户
-        :param delay: 等待时间
         """
+        logging.info('========== go_func_group_page ==========')
+
         WebDriverWait(self.driver, 20).until(lambda x: x.find_element_by_id("customerVisits"))
         self.driver.find_element_by_id("customerVisits").click()  # 从首页的客户拜访进入客户列表
-        # time.sleep(delay)
-        time.sleep(1)
+        time.sleep(2)
 
         customers = self.driver.find_elements_by_xpath('//*[@id="customerList"]/div')  # 获取当前页客户
         if customers:
             customers[random.randint(0, len(customers)-1)].click()  # 随机选一个用户
         else:
-            format_print('没有客户，请先添加客户')
+            logging.warning('没有客户，请先添加客户')
 
         self.driver.switch_to.frame('layui-layer-iframe1')  # 切换到iframe弹层
 
-        if self.is_element_exist('primary', 'class'):  # 判断元素节点是否存在
-            self.driver.find_element_by_class_name('primary').click()  # 如果出现定位失败弹窗，点击确定
+        # 定位失败时刷新定位
+        location = self.driver.find_element_by_id('location-span')
+        if location.text == '请手动刷新定位':
             self.driver.find_element_by_id('refresh').click()  # 刷新定位
-            time.sleep(delay)
+            time.sleep(3)
+
+        # 如果出现定位失败弹窗，点击确定，并刷新定位
+        # if self.is_element_exist('weui-dialog', 'class'):  # 判断元素节点是否存在
+        #     self.driver.find_element_by_class_name('primary').click()
+        #     self.driver.find_element_by_id('refresh').click()  # 刷新定位
+        #     time.sleep(3)
 
     def is_element_exist(self, element, eimg_type=None):
         """
@@ -175,8 +199,12 @@ class Common(BaseView):
             return flag
 
     def take_photo(self):
-        """活动拍照"""
+        """拜访、活动拍照"""
+
+        logging.info('========== take_photo ==========')
+
         for i in range(random.randint(1, 5)):
+        # for i in range(5):
             self.driver.find_element_by_class_name('picture1BtnId').click()
 
             self.swich_webview(self.context)  # 切换到微信视图控制相机拍照
@@ -187,13 +215,14 @@ class Common(BaseView):
             time.sleep(3)  # 等待图片上传完成
 
             self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
+
     @screenshot_error
-    def exit(self, eid='com.tencent.mm:id/jc'):
+    def exit(self, close_id):
         self.driver.switch_to.context('NATIVE_APP')
-        self.driver.find_element_by_id(eid).click()
+        self.driver.find_element_by_id(close_id).click()
 
 
 if __name__ == '__main__':
     driver = appium_desired()
-    # common = Common(driver)
-    # common.enter_ccloud()
+    common = Common(driver)
+    common.enter_ccloud()

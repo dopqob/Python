@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/12/6 10:00
 # @Author  : Bilon
-# @File    : activity.py
+# @File    : activitycommon.py
 import random
 from time import sleep
 from selenium.webdriver.support.wait import WebDriverWait

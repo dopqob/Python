@@ -3,8 +3,8 @@
 # @Time    : 2018/9/12 10:52
 # @Author  : Bilon
 # @File    : 测试发布.py
-
-import paramiko, sys
+import paramiko
+import sys
 from selenium import webdriver
 
 # 创建SSHClient实例对象
@@ -25,7 +25,7 @@ bakpath = '/usr/www/ccloud.ejuster.com.bak'
 
 
 # 执行cmd重复性太高，可以抽象成函数
-def remoteRun(cmd, printOutput = True):
+def remoteRun(cmd, printOutput=True):
     stdin, stdout, stderr = ssh.exec_command(cmd)
     output = stdout.read().decode()  # stdout.read()读出来的是字节串，用decode()转换为字符串
     errinfo = stderr.read().decode()
@@ -79,7 +79,7 @@ remoteRun(f'rm -rf {bakpath}; \
 
 # 解压安装包
 print('解压安装包...', end='')
-remoteRun(f'unzip -o {server} -d {path}', printOutput = False)
+remoteRun(f'unzip -o {server} -d {path}', printOutput=False)
 print('ok')
 
 # 修改配置文件

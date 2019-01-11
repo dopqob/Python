@@ -6,19 +6,26 @@
 import unittest
 from HTMLTestRunner import HTMLTestRunner
 from ccloud.common.myunit import StartEnd
+from email_manager import EmailManager
 
 
 # 用例目录
-dir = '../test_case'
+dir_path = '../test_case'
 
 # 加载测试用例，目录下以 "test" 开头的 ".py"文件
-discover = unittest.defaultTestLoader.discover(dir, pattern='test*.py')
+discover = unittest.defaultTestLoader.discover(dir_path, pattern='test*.py')
+# discover = unittest.defaultTestLoader.discover(dir_path, pattern='test_customer.py')
 
 # 报告输出路径
 file = StartEnd.create_report_file()
 
 # 运行用例并生成测试报告
 with open(file, 'wb') as f:
-    runner = HTMLTestRunner(stream=f, title=u'Ccloud测试报告', description=u'测试结果:')
+    runner = HTMLTestRunner(stream=f, title=u'APP测试报告', description=u'测试结果:')
     runner.run(discover)
+
+# 自动发送邮件
+manager = EmailManager()
+manager.send()
+
 

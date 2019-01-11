@@ -25,7 +25,7 @@ bakpath = '/usr/www/juster.net.cn.bak'
 
 
 # 执行cmd重复性太高，可以抽象成函数
-def remoteRun(cmd, printOutput = True):
+def remoteRun(cmd, printOutput=True):
     stdin, stdout, stderr = ssh.exec_command(cmd)
     output = stdout.read().decode()  # stdout.read()读出来的是bytes，用decode()转换为str
     errinfo = stderr.read().decode()
@@ -79,7 +79,7 @@ remoteRun(f'rm -rf {bakpath}; \
 
 # 解压安装包
 print('解压安装包...', end='')
-remoteRun(f'unzip -o {server} -d {path}', printOutput = False)
+remoteRun(f'unzip -o {server} -d {path}', printOutput=False)
 print('ok')
 
 # 修改配置文件
