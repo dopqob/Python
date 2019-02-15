@@ -17,9 +17,17 @@ unicodeKeyboard: True
 resetKeyboard: True
 #recreateChromeDriverSessions: True
 
+# 微信
 appPackage: com.tencent.mm
 appActivity: ui.LauncherUI
 
 chromeOptions:
   androidProcess: com.tencent.mm:tools
+
+# 企业微信
+appPackage_qywx: com.tencent.wework
+appActivity_qywx: .launch.LaunchSplashActivity
+
+chromeOptions_qywx:
+  androidProcess: com.tencent.wework
 

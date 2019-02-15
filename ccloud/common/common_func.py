@@ -31,20 +31,37 @@ def screenshot_error(func):
 class Common(BaseView):
     """封装公共方法类"""
 
-    def enter_ccloud(self):
+    # 微信
+    official_account_id = 'com.tencent.mm:id/b4o'  # 消息列表联系人ID 微信7.0版本及以后
+    # official_account_id = 'com.tencent.mm:id/azl'  # 消息列表联系人ID 微信7.0版本及以前
+    application_id = 'com.tencent.mm:id/am1'  # 订单云平台入口ID 微信7.0版本及以后
+    # application_id = 'com.tencent.mm:id/po'   # 订单云平台入口ID 微信7.0版本及以前
+    context = 'NATIVE_APP'  # 默认的应用context
+    h5_context = 'WEBVIEW_com.tencent.mm:tools'  # 应用H5视图
+    close = 'com.tencent.mm:id/k5'  # 左上角X
+
+    # 企业微信
+    menu_id = 'com.tencent.wework:id/aqa'  # 底部菜单ID
+    app_id = 'com.tencent.wework:id/avx'    # 应用ID
+
+    def enter_ccloud(self, flag=True):
         """执行用例的前提条件，先进入应用"""
-        self.enter_wechat_official_account(self.official_account_id, '武汉珈研')  # 进入指定微信公众号
-        self.enter_applet(self.application_id)     # 进入应用
-        self.swich_webview(self.h5_context)     # 切换到h5视图
-        self.select_accout('华中科技')          # 选择账套
+        if flag:
+            self.enter_wechat_official_account('武汉珈研')  # 进入指定微信公众号
+            self.enter_applet()     # 进入应用
+            self.swich_webview(self.h5_context)     # 切换到h5视图
+            self.select_accout('华中科技')          # 选择账套
+        else:
+            self.enter_qywx_applet('慧订货')   # 进入企业微信的慧订货应用
+            self.swich_webview(self.h5_context)  # 切换到h5视图
 
     @screenshot_error
-    def enter_wechat_official_account(self, account_id, account_name):
+    def enter_wechat_official_account(self, account_name):
         """进入公众号"""
 
         logging.info('========== enter_wechat_official_account ==========')
 
-        elements = self.driver.find_elements_by_id(account_id)
+        elements = self.driver.find_elements_by_id(self.official_account_id)
         if elements:
             for e in elements:
                 if e.text == account_name:
@@ -54,37 +71,32 @@ class Common(BaseView):
                 logging.warning('消息列表没有该公众号')
                 raise Exception('消息列表没有该公众号')
 
-    def take_screenshot(self, img_name):
-        """
-        获取当前屏幕的截图
-        :param img_name: 截图名称
-        Usage:
-             device.take_screenshot('个人主页')   #实际截图保存的结果为：2018-11-28_15_24_58_个人主页.png
-        """
-        logging.info('========== take_screenshot ==========')
-
-        try:
-            if self.driver.current_context != 'NATIVE_APP':
-                self.driver.switch_to.context('NATIVE_APP')
-            day = time.strftime("%Y-%m-%d", time.localtime(time.time()))
-            shot_path = "..\\Screenshots\\" + day
-            shot_time = time.strftime("%Y-%m-%d_%H_%M_%S", time.localtime(time.time()))
-            img_type = '.png'
-            filename = shot_path + "\\" + shot_time + "_" + img_name + img_type
-            if not os.path.exists(shot_path):
-                os.makedirs(shot_path)
-            self.driver.get_screenshot_as_file(filename)
-        except Exception as e:
-            logging.warning('尝试截图失败', e)
-
     @screenshot_error
-    def enter_applet(self, app_id):
+    def enter_applet(self):
         """进入订单云平台"""
 
         logging.info('========== enter_applet ==========')
 
-        self.driver.find_element_by_id(app_id).click()     # Meizu MX3
+        self.driver.find_element_by_id(self.application_id).click()     # Meizu MX3
         # self.driver.find_elements_by_id(app_id)[0].click()   # Vivo x9
+
+    @screenshot_error
+    def enter_qywx_applet(self, app_name):
+        """企业微信进入应用"""
+        logging.info('========== enter_qywx_applet ==========')
+        menus = self.driver.find_elements_by_id(self.menu_id)
+        if menus:
+            for m in menus:
+                if m.text == '工作台':
+                    m.click()
+                    break
+            apps = self.driver.find_elements_by_id(self.app_id)
+            for app in apps:
+                if app.text == app_name:
+                    app.click()
+                    break
+        print(self.driver.current_context)
+        print(self.driver.contexts)
 
     @screenshot_error
     def swich_webview(self, webview):
@@ -126,7 +138,7 @@ class Common(BaseView):
 
         logging.info('========== return_home_page ==========')
 
-        time.sleep(1)
+        time.sleep(2)
         if self.is_element_exist('.wy-foot-menu>a:first-child'):
             self.driver.find_element_by_css_selector('.wy-foot-menu a:first-child').click()
         elif self.is_element_exist('button', 'id'):
@@ -161,6 +173,9 @@ class Common(BaseView):
             logging.warning('没有客户，请先添加客户')
 
         self.driver.switch_to.frame('layui-layer-iframe1')  # 切换到iframe弹层
+
+        if self.is_element_exist('//a[text()="确定"]', 'xpath'):  # 如果出现上个拜访未完成的提示，点击确定
+            self.driver.find_element_by_xpath('//a[text()="确定"]').click()
 
         # 定位失败时刷新定位
         location = self.driver.find_element_by_id('location-span')
@@ -198,13 +213,23 @@ class Common(BaseView):
             flag = False
             return flag
 
+    def clear_drafts(self):
+        """清空草稿箱"""
+        badge = self.driver.find_element_by_xpath('//*[@id="home"]/div[4]/div[2]/a[5]/span')
+        if badge.is_displayed() and int(badge.text) == 4:
+            # if self.is_element_exist('//*[@id="home"]/div[4]/div[2]/a[5]/span', 'xpath'):
+            # WebDriverWait(self.driver, 20).until(lambda x: x.find_element_by_xpath('//p[text()="拜访草稿箱"]'))
+            self.driver.find_element_by_xpath('//p[text()="拜访草稿箱"]').click()
+            self.driver.find_element_by_tag_name('img').click()
+            self.driver.find_element_by_xpath('//a[text()="确定"]').click()
+            self.driver.find_element_by_xpath('//button[text()="首页"]').click()
+
     def take_photo(self):
         """拜访、活动拍照"""
 
         logging.info('========== take_photo ==========')
 
         for i in range(random.randint(1, 5)):
-        # for i in range(5):
             self.driver.find_element_by_class_name('picture1BtnId').click()
 
             self.swich_webview(self.context)  # 切换到微信视图控制相机拍照
@@ -212,17 +237,91 @@ class Common(BaseView):
             # self.driver.find_element_by_id('com.android.gallery3d:id/image_capture_done_img').click() # Meizu MX3
             self.driver.find_element_by_id('com.android.camera:id/shutter_button').click()  # Vivo x9 拍照
             self.driver.find_element_by_id('com.android.camera:id/done_button').click()  # Vivo x9 确定
+            if self.is_element_exist('com.tencent.wework:id/e2v', 'id'):    # 企业微信上传图片二次确认按钮
+                self.driver.find_element_by_id('com.tencent.wework:id/e2v').click()
             time.sleep(3)  # 等待图片上传完成
 
             self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
+
+    def upload_photo(self):
+        """补录上传照片"""
+        logging.info('========== upload_photo ==========')
+
+        for i in range(random.randint(1, 4)):
+            # for i in range(4):
+            self.driver.find_element_by_class_name('uploaderInput').click()
+            self.swich_webview(self.context)  # 切换到NATIVE_APP视图控制照片选择
+
+            # 企业微信多两个步骤
+            if self.is_element_exist('com.tencent.wework:id/aqa', 'id'):
+                sources = self.driver.find_elements_by_id('com.tencent.wework:id/aqa')
+                sources[1].click()
+                self.driver.find_element_by_xpath(
+                    '//android.widget.ImageButton[@content-desc="显示根目录"]').click()
+
+            # self.driver.find_element_by_id('com.android.gallery3d:id/shutter_button').click() # Meizu MX3
+            # self.driver.find_element_by_id('com.android.gallery3d:id/image_capture_done_img').click() # Meizu MX3
+            self.driver.find_elements_by_id('android:id/title')[-1].click()     # 选择系统相册
+            num = self.driver.find_elements_by_id('com.vivo.gallery:id/dreamway_folder_count')[0].text  # 获取照片数量
+            self.driver.find_elements_by_id(
+                'com.vivo.gallery:id/dreamway_folder_info')[0].click()  # 选择相机相册
+
+            width = self.driver.get_window_size().get('width')  # 获取屏幕宽度
+            height = self.driver.get_window_size().get('height')  # 获取屏幕高度
+            time.sleep(0.5)
+            if int(num) == i+1:
+                self.driver.tap([(width * 0.2 * (i+1), height * 0.2), ])
+                time.sleep(3)  # 等待图片上传完成
+
+                self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
+                time.sleep(0.5)
+                if self.is_element_exist('//h3[text()="照片没有定位信息"]', 'xpath'):
+                    self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
+                if self.is_element_exist('//h3[text()="照片定位不一致"]', 'xpath'):
+                    self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
+                break
+            else:
+                self.driver.tap([(width * 0.2 * (i + 1), height * 0.2), ])
+                time.sleep(3)  # 等待图片上传完成
+
+                self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
+                time.sleep(0.5)
+                if self.is_element_exist('//h3[text()="照片没有定位信息"]', 'xpath'):
+                    self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
+                if self.is_element_exist('//h3[text()="照片定位不一致"]', 'xpath'):
+                    self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
 
     @screenshot_error
     def exit(self, close_id):
         self.driver.switch_to.context('NATIVE_APP')
         self.driver.find_element_by_id(close_id).click()
 
+    def take_screenshot(self, img_name):
+        """
+        获取当前屏幕的截图
+        :param img_name: 截图名称
+        Usage:
+             device.take_screenshot('个人主页')   #实际截图保存的结果为：2018-11-28_15_24_58_个人主页.png
+        """
+        logging.info('========== take_screenshot ==========')
+
+        try:
+            if self.driver.current_context != 'NATIVE_APP':
+                self.driver.switch_to.context('NATIVE_APP')
+            day = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+            shot_path = "..\\Screenshots\\" + day
+            shot_time = time.strftime("%Y-%m-%d_%H_%M_%S", time.localtime(time.time()))
+            img_type = '.png'
+            filename = shot_path + "\\" + shot_time + "_" + img_name + img_type
+            if not os.path.exists(shot_path):
+                os.makedirs(shot_path)
+            self.driver.get_screenshot_as_file(filename)
+        except Exception as e:
+            logging.warning('尝试截图失败', e)
+
 
 if __name__ == '__main__':
-    driver = appium_desired()
+    driver = appium_desired(flag=False)
     common = Common(driver)
-    common.enter_ccloud()
+    common.enter_ccloud(flag=False)
+    time.sleep(5)

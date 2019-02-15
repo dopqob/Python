@@ -164,5 +164,29 @@ def fibonacci(count):
         count -= 1  # 计数递减
         yield x  # 生成计算结果
 
-print(list(fibonacci(10)))
-print(fib(10))
+# print(list(fibonacci(10)))
+# print(fib(10))
+
+
+def add_symbol(*args):
+    def wrapper(func):
+        def new_total(price, count):
+            if len(args) > 1:
+                return args[0] + str(round(func(price, count) / args[1], 2))
+            return args[0] + str(func(price, count))
+        return new_total
+    return wrapper
+
+@add_symbol('￥')
+def total(price, count):
+    return price * count
+
+@add_symbol('$',6.5) # 非人民币结算时，除以总计除以汇率。
+def us_total(price, count):
+    return price * count
+
+# print(total(2.5, 3))  # 显示输出结果为：￥7.5
+# print(us_total(2.5,3))  # 显示输出结果为：$1.15
+
+str5 = 'apply_num1'
+print(str5[:-1])

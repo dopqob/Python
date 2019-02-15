@@ -48,6 +48,11 @@ class Customer(Common):
     visit_confirm = '//a[contains(text(),"确定")]'    # 提交拜访二次确认
     visit_complete_confirm = '//a[contains(text(),"确定")]'   # 拜访完成二次确认
 
+    # 常规拜访补录
+    visit_supplement_id = 'photoBL'   # 常规拜访补录入口
+    add_photo_id = 'uploaderInput'  # 添加照片
+    remark_id = 'question_desc'     # 添加备注信息
+
     @screenshot_error
     def add_customer(self, photo=True):
         """新增客户"""
@@ -127,8 +132,9 @@ class Customer(Common):
         if self.is_element_exist(self.cannel_enter_drafts, 'xpath'):
             self.driver.find_element_by_xpath(self.cannel_enter_drafts).click()
 
-        # 随机拍1-5张照片
-        self.take_photo()
+        self.driver.find_element_by_id(self.remark_id).send_keys(create_gbk(30))  # 添加备注信息
+
+        self.take_photo()   # 随机拍1-5张照片
 
         WebDriverWait(self.driver, 10).until(
             lambda x: x.find_element_by_xpath(self.visit_submit))
@@ -145,6 +151,35 @@ class Customer(Common):
         self.driver.find_element_by_xpath(self.visit_complete_confirm).click()
         sleep(1)
 
+    @screenshot_error
+    def customer_visit_supplement(self):
+        """常规拜访-补录"""
+
+        logging.info('========== customer_visit_supplement ==========')
+        # 进入"常规拜访"
+        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.visit_supplement_id))
+        self.driver.find_element_by_id(self.visit_supplement_id).click()
+        sleep(1)
+
+        self.driver.find_element_by_id(self.remark_id).send_keys(create_gbk(30))   # 添加备注信息
+
+        self.upload_photo()     # 添加照片
+
+        WebDriverWait(self.driver, 10).until(
+            lambda x: x.find_element_by_xpath(self.visit_submit))
+        self.driver.find_element_by_xpath(self.visit_submit).click()    # 提交
+
+        WebDriverWait(self.driver, 10).until(
+            lambda x: x.find_element_by_xpath(self.visit_confirm))
+        self.driver.find_element_by_xpath(self.visit_confirm).click()   # 二次确认
+
+        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.visit_complete_id))
+        self.driver.find_element_by_id(self.visit_complete_id).click()  # 点击拜访完成按钮
+        WebDriverWait(self.driver, 10).until(
+            lambda x: x.find_element_by_xpath(self.visit_complete_confirm))
+        self.driver.find_element_by_xpath(self.visit_complete_confirm).click()
+        sleep(1)
+
 
 if __name__ == '__main__':
     driver = appium_desired()
@@ -152,9 +187,15 @@ if __name__ == '__main__':
     customer.enter_ccloud()
 
     # 新增客户
-    customer.add_customer()
+    # customer.add_customer()
     # customer.return_home_page()
 
-    # 客户拜访
+    # 常规拜访
     # customer.go_func_group_page()
     # customer.customer_visit()
+
+    # 常规拜访补录
+    for _ in range(1):
+        customer.go_func_group_page()
+        customer.customer_visit_supplement()
+        customer.return_home_page()

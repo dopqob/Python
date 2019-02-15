@@ -187,16 +187,16 @@ if __name__ == '__main__':
     order = Order(driver)
     flag = [True, False]
     order.enter_ccloud()
-    for i in range(5):
-        # order.enter_normal_order()
-        # order.add_product(random.randint(1, 3))
-        # order.place_order(isgift=random.choice(flag))
-        # order.return_home_page()
-
-        order.go_func_group_page()
-        order.enter_mashup_order()
+    for i in range(3):
+        order.enter_normal_order()
         order.add_product(random.randint(1, 3))
-        order.mashup_order(isgift=random.choice(flag))
+        order.place_order(isgift=random.choice(flag))
         order.return_home_page()
+
+        # order.go_func_group_page()
+        # order.enter_mashup_order()
+        # order.add_product(random.randint(1, 3))
+        # order.mashup_order(isgift=random.choice(flag))
+        # order.return_home_page()
     # order.add_product(3)
     # order.empty_cart()

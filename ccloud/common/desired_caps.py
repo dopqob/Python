@@ -13,20 +13,28 @@ logging.config.fileConfig(CON_LOG)
 logging = logging.getLogger()
 
 
-def appium_desired():
+def appium_desired(flag=True):
+    """设置一个flag，为True时启动微信，否则启动企业微信"""
 
     with open('../config/caps.yaml', 'r', encoding='utf-8') as f:
         data = yaml.load(f)
 
     desired_caps = {}
-    desired_caps['appPackage'] = data['appPackage']
-    desired_caps['appActivity'] = data['appActivity']
+    if flag:
+        desired_caps['appPackage'] = data['appPackage']
+        desired_caps['appActivity'] = data['appActivity']
+        desired_caps['chromeOptions'] = data['chromeOptions']
+    else:
+        desired_caps['appPackage'] = data['appPackage_qywx']
+        desired_caps['appActivity'] = data['appActivity_qywx']
+        desired_caps['chromeOptions'] = data['chromeOptions_qywx']
+
     desired_caps['platformName'] = data['platformName']
     desired_caps['deviceName'] = data['deviceName']
     desired_caps['noReset'] = data['noReset']
     desired_caps['unicodeKeyboard'] = data['unicodeKeyboard']
     desired_caps['resetKeyboard'] = data['resetKeyboard']
-    desired_caps['chromeOptions'] = data['chromeOptions']
+
 
     logging.info('start run test...')
 

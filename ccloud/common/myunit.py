@@ -21,12 +21,23 @@ class StartEnd(unittest.TestCase):
         sleep(1)
         self.driver.quit()
 
-    @classmethod
-    def create_report_file(cls):
-        day = time.strftime("%Y-%m-%d", time.localtime(time.time()))
-        path = "..\\TestReport\\" + day
-        create_time = time.strftime("%Y-%m-%d_%H_%M_%S", time.localtime(time.time()))
-        file = path + "\\" + create_time + "_" + 'report.html'
-        if not os.path.exists(path):
-            os.makedirs(path)
-        return file
+
+class StartEndQYWX(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = appium_desired(flag=False)
+
+    def tearDown(self):
+        logging.info('******************** tearDown ********************\n')
+        sleep(1)
+        self.driver.quit()
+
+
+def create_report_file():
+    day = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+    path = "..\\TestReport\\" + day
+    create_time = time.strftime("%Y-%m-%d_%H_%M_%S", time.localtime(time.time()))
+    file = path + "\\" + create_time + "_" + 'report.html'
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return file

@@ -7,18 +7,18 @@ import logging
 import unittest
 from time import sleep
 from HTMLTestRunner import HTMLTestRunner
-from ccloud.common.myunit import StartEnd, create_report_file
+from ccloud.common.myunit import StartEndQYWX, create_report_file
 from ccloud.businessView.activity import NormalActivity, MarketingCampaign
 
 
-class ActivityTest(StartEnd):
+class ActivityTest(StartEndQYWX):
     """活动测试"""
 
     def test_normal_activity(self):
         """活动快捷执行"""
         logging.info('******************** test_normal_activity ********************')
         act = NormalActivity(self.driver)
-        act.enter_ccloud()
+        act.enter_ccloud(flag=False)
         act.clear_drafts()
         act.go_func_group_page()
         act.normal_activity()
@@ -28,7 +28,7 @@ class ActivityTest(StartEnd):
         """消费培育活动"""
         logging.info('******************** test_cultivate_activity ********************')
         act = MarketingCampaign(self.driver)
-        act.enter_ccloud()
+        act.enter_ccloud(flag=False)
         act.clear_drafts()
         act.go_mycenter()
         act.cultivate_activity()
@@ -39,7 +39,7 @@ class ActivityTest(StartEnd):
         """团购直销活动"""
         logging.info('******************** test_groupon_activity ********************')
         act = MarketingCampaign(self.driver)
-        act.enter_ccloud()
+        act.enter_ccloud(flag=False)
         act.clear_drafts()
         act.go_mycenter()
         act.groupon_activity()
@@ -50,7 +50,7 @@ class ActivityTest(StartEnd):
         """宴席推广活动"""
         logging.info('******************** test_feast_activity ********************')
         act = MarketingCampaign(self.driver)
-        act.enter_ccloud()
+        act.enter_ccloud(flag=False)
         act.clear_drafts()
         act.go_mycenter()
         act.feast_activity()
@@ -60,7 +60,7 @@ class ActivityTest(StartEnd):
         """消费培育活动-补录"""
         logging.info('******************** test_cultivate_supplement ********************')
         act = MarketingCampaign(self.driver)
-        act.enter_ccloud()
+        act.enter_ccloud(flag=False)
         act.go_mycenter()
         act.cultivate_activity_supplement()
         sleep(2)
@@ -70,7 +70,7 @@ class ActivityTest(StartEnd):
         """团购直销活动-补录"""
         logging.info('******************** test_groupon_supplement ********************')
         act = MarketingCampaign(self.driver)
-        act.enter_ccloud()
+        act.enter_ccloud(flag=False)
         act.go_mycenter()
         act.groupon_activity_supplement()
         sleep(2)
@@ -80,7 +80,7 @@ class ActivityTest(StartEnd):
         """宴席推广活动-补录"""
         logging.info('******************** test_feast_supplement ********************')
         act = MarketingCampaign(self.driver)
-        act.enter_ccloud()
+        act.enter_ccloud(flag=False)
         act.go_mycenter()
         act.feast_activity_supplement()
         sleep(2)

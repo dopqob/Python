@@ -7,18 +7,18 @@ import logging
 import unittest
 from time import sleep
 from HTMLTestRunner import HTMLTestRunner
-from ccloud.common.myunit import StartEnd, create_report_file
+from ccloud.common.myunit import StartEndQYWX, create_report_file
 from ccloud.businessView.customer import Customer
 
 
-class CustomerTest(StartEnd):
+class CustomerTest(StartEndQYWX):
     """客户/拜访"""
 
     def test_add_customer_with_photo(self):
         """新增客户-带照片"""
         logging.info('******************** test_add_customer_with_photo ********************')
         c = Customer(self.driver)
-        c.enter_ccloud()
+        c.enter_ccloud(flag=False)
         c.add_customer()
         sleep(3)
         self.assertEqual(self.driver.title, '客户列表')
@@ -27,7 +27,7 @@ class CustomerTest(StartEnd):
         """新增客户-不带照片"""
         logging.info('******************** test_add_customer_without_photo ********************')
         c = Customer(self.driver)
-        c.enter_ccloud()
+        c.enter_ccloud(flag=False)
         c.add_customer(photo=False)
         self.assertEqual(self.driver.title, '客户列表')
 
@@ -35,7 +35,7 @@ class CustomerTest(StartEnd):
         """常规拜访"""
         logging.info('******************** test_customer_visit ********************')
         c = Customer(self.driver)
-        c.enter_ccloud()
+        c.enter_ccloud(flag=False)
         c.go_func_group_page()
         c.customer_visit()
         c.return_home_page()
@@ -44,7 +44,7 @@ class CustomerTest(StartEnd):
         """常规拜访-补录"""
         logging.info('******************** test_customer_visit_supplement ********************')
         c = Customer(self.driver)
-        c.enter_ccloud()
+        c.enter_ccloud(flag=False)
         c.go_func_group_page()
         c.customer_visit_supplement()
         c.return_home_page()

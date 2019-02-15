@@ -51,7 +51,7 @@ class Audit(Common):
 
     # 返回首页
     def return_index(self):
-        WebDriverWait(self.driver, 20).until(lambda x: x.find_element_by_class_name(self.return_home_page))
+        sleep(2)
         self.driver.find_element_by_class_name(self.return_home_page).click()
 
     @screenshot_error
