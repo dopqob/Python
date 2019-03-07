@@ -21,7 +21,7 @@ class ActivityTest(StartEndQYWX):
         act.enter_ccloud(flag=False)
         act.clear_drafts()
         act.go_func_group_page()
-        act.normal_activity()
+        act.normal_activity(flag=False)
 
     # @unittest.skip('消费培育活动')
     def test_cultivate_activity(self):
@@ -31,7 +31,7 @@ class ActivityTest(StartEndQYWX):
         act.enter_ccloud(flag=False)
         act.clear_drafts()
         act.go_mycenter()
-        act.cultivate_activity()
+        act.cultivate_activity(flag=False)
         self.assertEqual(self.driver.title, '营销推广')
 
     # @unittest.skip('团购直销活动')
@@ -42,7 +42,7 @@ class ActivityTest(StartEndQYWX):
         act.enter_ccloud(flag=False)
         act.clear_drafts()
         act.go_mycenter()
-        act.groupon_activity()
+        act.groupon_activity(flag=False)
         self.assertEqual(self.driver.title, '营销推广')
 
     # @unittest.skip('宴席推广活动')
@@ -53,7 +53,7 @@ class ActivityTest(StartEndQYWX):
         act.enter_ccloud(flag=False)
         act.clear_drafts()
         act.go_mycenter()
-        act.feast_activity()
+        act.feast_activity(flag=False)
         self.assertEqual(self.driver.title, '营销推广')
 
     def test_cultivate_supplement(self):
@@ -62,7 +62,7 @@ class ActivityTest(StartEndQYWX):
         act = MarketingCampaign(self.driver)
         act.enter_ccloud(flag=False)
         act.go_mycenter()
-        act.cultivate_activity_supplement()
+        act.cultivate_activity_supplement(flag=False)
         sleep(2)
         self.assertEqual(self.driver.title, '营销推广补录')
 
@@ -72,7 +72,7 @@ class ActivityTest(StartEndQYWX):
         act = MarketingCampaign(self.driver)
         act.enter_ccloud(flag=False)
         act.go_mycenter()
-        act.groupon_activity_supplement()
+        act.groupon_activity_supplement(flag=False)
         sleep(2)
         self.assertEqual(self.driver.title, '营销推广补录')
 
@@ -82,7 +82,7 @@ class ActivityTest(StartEndQYWX):
         act = MarketingCampaign(self.driver)
         act.enter_ccloud(flag=False)
         act.go_mycenter()
-        act.feast_activity_supplement()
+        act.feast_activity_supplement(flag=False)
         sleep(2)
         self.assertEqual(self.driver.title, '营销推广补录')
 

@@ -95,8 +95,6 @@ class Common(BaseView):
                 if app.text == app_name:
                     app.click()
                     break
-        print(self.driver.current_context)
-        print(self.driver.contexts)
 
     @screenshot_error
     def swich_webview(self, webview):
@@ -224,7 +222,7 @@ class Common(BaseView):
             self.driver.find_element_by_xpath('//a[text()="确定"]').click()
             self.driver.find_element_by_xpath('//button[text()="首页"]').click()
 
-    def take_photo(self):
+    def take_photo(self,flag=True):
         """拜访、活动拍照"""
 
         logging.info('========== take_photo ==========')
@@ -237,13 +235,13 @@ class Common(BaseView):
             # self.driver.find_element_by_id('com.android.gallery3d:id/image_capture_done_img').click() # Meizu MX3
             self.driver.find_element_by_id('com.android.camera:id/shutter_button').click()  # Vivo x9 拍照
             self.driver.find_element_by_id('com.android.camera:id/done_button').click()  # Vivo x9 确定
-            if self.is_element_exist('com.tencent.wework:id/e2v', 'id'):    # 企业微信上传图片二次确认按钮
+            if not flag:    # 企业微信上传图片二次确认按钮
                 self.driver.find_element_by_id('com.tencent.wework:id/e2v').click()
             time.sleep(3)  # 等待图片上传完成
 
             self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
 
-    def upload_photo(self):
+    def upload_photo(self, flag=True):
         """补录上传照片"""
         logging.info('========== upload_photo ==========')
 
@@ -253,7 +251,7 @@ class Common(BaseView):
             self.swich_webview(self.context)  # 切换到NATIVE_APP视图控制照片选择
 
             # 企业微信多两个步骤
-            if self.is_element_exist('com.tencent.wework:id/aqa', 'id'):
+            if not flag:
                 sources = self.driver.find_elements_by_id('com.tencent.wework:id/aqa')
                 sources[1].click()
                 self.driver.find_element_by_xpath(

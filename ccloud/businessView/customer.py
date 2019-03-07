@@ -118,7 +118,7 @@ class Customer(Common):
         sleep(1)
 
     @screenshot_error
-    def customer_visit(self):
+    def customer_visit(self, flag=True):
         """常规拜访"""
 
         logging.info('========== customer_visit ==========')
@@ -134,7 +134,7 @@ class Customer(Common):
 
         self.driver.find_element_by_id(self.remark_id).send_keys(create_gbk(30))  # 添加备注信息
 
-        self.take_photo()   # 随机拍1-5张照片
+        self.take_photo(flag)   # 随机拍1-5张照片
 
         WebDriverWait(self.driver, 10).until(
             lambda x: x.find_element_by_xpath(self.visit_submit))
@@ -152,7 +152,7 @@ class Customer(Common):
         sleep(1)
 
     @screenshot_error
-    def customer_visit_supplement(self):
+    def customer_visit_supplement(self, flag=True):
         """常规拜访-补录"""
 
         logging.info('========== customer_visit_supplement ==========')
@@ -163,7 +163,7 @@ class Customer(Common):
 
         self.driver.find_element_by_id(self.remark_id).send_keys(create_gbk(30))   # 添加备注信息
 
-        self.upload_photo()     # 添加照片
+        self.upload_photo(flag)     # 添加照片
 
         WebDriverWait(self.driver, 10).until(
             lambda x: x.find_element_by_xpath(self.visit_submit))
@@ -195,7 +195,7 @@ if __name__ == '__main__':
     # customer.customer_visit()
 
     # 常规拜访补录
-    for _ in range(1):
+    for _ in range(100):
         customer.go_func_group_page()
         customer.customer_visit_supplement()
         customer.return_home_page()

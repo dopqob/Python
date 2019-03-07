@@ -146,7 +146,7 @@ class ActivityCommon(Common):
 class NormalActivity(ActivityCommon):
     """普通活动"""
     @screenshot_error
-    def normal_activity(self):
+    def normal_activity(self, flag=True):
         """活动快捷执行"""
 
         # 进入"活动快捷执行"
@@ -170,7 +170,7 @@ class NormalActivity(ActivityCommon):
         self.apply_amount()
 
         # 随机拍1-5张照
-        self.take_photo()
+        self.take_photo(flag)
 
         # 提交
         self.submit()
@@ -221,7 +221,7 @@ class MarketingCampaign(ActivityCommon):
         sleep(5)
 
     @screenshot_error
-    def cultivate_activity(self):
+    def cultivate_activity(self, flag=True):
         """消费培育活动"""
 
         # 选择消费培育活动
@@ -256,7 +256,7 @@ class MarketingCampaign(ActivityCommon):
         self.apply_amount()
 
         # 随机拍1-5张照
-        self.take_photo()
+        self.take_photo(flag)
 
         # 提交
         self.submit()
@@ -265,7 +265,7 @@ class MarketingCampaign(ActivityCommon):
         self.reconfirm()
 
     @screenshot_error
-    def groupon_activity(self):
+    def groupon_activity(self, flag=True):
         """团购直销活动"""
 
         # 进入团购直销活动
@@ -297,7 +297,7 @@ class MarketingCampaign(ActivityCommon):
         self.apply_amount()
 
         # 随机拍1-5张照
-        self.take_photo()
+        self.take_photo(flag)
 
         # 提交
         self.submit()
@@ -306,7 +306,7 @@ class MarketingCampaign(ActivityCommon):
         self.reconfirm()
 
     @screenshot_error
-    def feast_activity(self):
+    def feast_activity(self, flag=True):
         """宴席推广活动"""
 
         # 进入宴席推广活动
@@ -348,7 +348,7 @@ class MarketingCampaign(ActivityCommon):
         self.apply_amount()
 
         # 随机拍1-5张照
-        self.take_photo()
+        self.take_photo(flag)
 
         # 提交
         self.submit()
@@ -357,7 +357,7 @@ class MarketingCampaign(ActivityCommon):
         self.reconfirm()
 
     @screenshot_error
-    def cultivate_activity_supplement(self):
+    def cultivate_activity_supplement(self, flag=True):
         """消费培育活动-补录"""
 
         # 选择消费培育活动
@@ -389,7 +389,7 @@ class MarketingCampaign(ActivityCommon):
         self.apply_amount()
 
         # 上传照片
-        self.upload_photo()
+        self.upload_photo(flag)
 
         # 提交
         self.submit()
@@ -398,7 +398,7 @@ class MarketingCampaign(ActivityCommon):
         self.reconfirm()
 
     @screenshot_error
-    def groupon_activity_supplement(self):
+    def groupon_activity_supplement(self, flag=True):
         """团购直销活动-补录"""
 
         # 进入团购直销活动
@@ -427,7 +427,7 @@ class MarketingCampaign(ActivityCommon):
         self.apply_amount()
 
         # 上传照片
-        self.upload_photo()
+        self.upload_photo(flag)
 
         # 提交
         self.submit()
@@ -436,7 +436,7 @@ class MarketingCampaign(ActivityCommon):
         self.reconfirm()
 
     @screenshot_error
-    def feast_activity_supplement(self):
+    def feast_activity_supplement(self, flag=True):
         """宴席推广活动-补录"""
 
         # 进入宴席推广活动
@@ -475,7 +475,7 @@ class MarketingCampaign(ActivityCommon):
         self.apply_amount()
 
         # 上传照片
-        self.upload_photo()
+        self.upload_photo(flag)
 
         # 提交
         self.submit()

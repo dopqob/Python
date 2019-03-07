@@ -37,7 +37,7 @@ class CustomerTest(StartEndQYWX):
         c = Customer(self.driver)
         c.enter_ccloud(flag=False)
         c.go_func_group_page()
-        c.customer_visit()
+        c.customer_visit(flag=False)
         c.return_home_page()
 
     def test_customer_visit_supplement(self):
@@ -46,7 +46,7 @@ class CustomerTest(StartEndQYWX):
         c = Customer(self.driver)
         c.enter_ccloud(flag=False)
         c.go_func_group_page()
-        c.customer_visit_supplement()
+        c.customer_visit_supplement(flag=False)
         c.return_home_page()
 
 

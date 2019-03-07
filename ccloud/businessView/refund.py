@@ -34,7 +34,7 @@ class Refund(Common):
     choose_customer = '//*[@id="form"]/div[1]/div[1]'   # 选择客户
     submit = '//button[text()="提交订单"]'  # 提交订单
     confirm = '//a[text()="确定"]'    # 二次确认
-    continue_refund = '//a[text()="继续退货"]'    # 进入退货单列表
+    no_exchange = '//a[text()="否"]'    # 出现是否退换货时选择否
     goto_refund_list = '//a[text()="查看订单"]'     # 查看退货单列表
 
     @screenshot_error
@@ -98,8 +98,9 @@ class Refund(Common):
             WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.submit))
             self.driver.find_element_by_xpath(self.submit).click()  # 提交订单
             self.driver.find_element_by_xpath(self.confirm).click()     # 再次确认
-            WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.continue_refund))
-            self.driver.find_element_by_xpath(self.continue_refund).click()     # 点击继续退货按钮
+            WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.no_exchange))
+            self.driver.find_element_by_xpath(self.no_exchange).click()     # 点击继续退货按钮
+            sleep(1)
         else:
             logging.info('没有可退货的订单')
 
@@ -142,5 +143,5 @@ if __name__ == '__main__':
     r.enter_ccloud()
     r.go_mycenter()
     r.enter_refund()
-    # r.order_refund()
-    r.free_refund()
+    r.order_refund()
+    # r.free_refund()
