@@ -16,7 +16,7 @@ class ActivityTest(StartEnd):
 
     def test_normal_activity(self):
         """活动快捷执行"""
-        logging.info('******************** test_normal_activity ********************')
+        logging.info('******************** 活动快捷执行 ********************')
         act = NormalActivity(self.driver)
         act.enter_ccloud()
         act.clear_drafts()
@@ -26,7 +26,7 @@ class ActivityTest(StartEnd):
     # @unittest.skip('消费培育活动')
     def test_cultivate_activity(self):
         """消费培育活动"""
-        logging.info('******************** test_cultivate_activity ********************')
+        logging.info('******************** 消费培育活动 ********************')
         act = MarketingCampaign(self.driver)
         act.enter_ccloud()
         act.clear_drafts()
@@ -37,7 +37,7 @@ class ActivityTest(StartEnd):
     # @unittest.skip('团购直销活动')
     def test_groupon_activity(self):
         """团购直销活动"""
-        logging.info('******************** test_groupon_activity ********************')
+        logging.info('******************** 团购直销活动 ********************')
         act = MarketingCampaign(self.driver)
         act.enter_ccloud()
         act.clear_drafts()
@@ -48,7 +48,7 @@ class ActivityTest(StartEnd):
     # @unittest.skip('宴席推广活动')
     def test_feast_activity(self):
         """宴席推广活动"""
-        logging.info('******************** test_feast_activity ********************')
+        logging.info('******************** 宴席推广活动 ********************')
         act = MarketingCampaign(self.driver)
         act.enter_ccloud()
         act.clear_drafts()
@@ -58,32 +58,29 @@ class ActivityTest(StartEnd):
 
     def test_cultivate_supplement(self):
         """消费培育活动-补录"""
-        logging.info('******************** test_cultivate_supplement ********************')
+        logging.info('******************** 消费培育活动-补录 ********************')
         act = MarketingCampaign(self.driver)
         act.enter_ccloud()
         act.go_mycenter()
         act.cultivate_activity_supplement()
-        sleep(2)
         self.assertEqual(self.driver.title, '营销推广补录')
 
     def test_groupon_supplement(self):
         """团购直销活动-补录"""
-        logging.info('******************** test_groupon_supplement ********************')
+        logging.info('******************** 团购直销活动-补录 ********************')
         act = MarketingCampaign(self.driver)
         act.enter_ccloud()
         act.go_mycenter()
         act.groupon_activity_supplement()
-        sleep(2)
         self.assertEqual(self.driver.title, '营销推广补录')
 
     def test_feast_supplement(self):
         """宴席推广活动-补录"""
-        logging.info('******************** test_feast_supplement ********************')
+        logging.info('******************** 宴席推广活动-补录 ********************')
         act = MarketingCampaign(self.driver)
         act.enter_ccloud()
         act.go_mycenter()
         act.feast_activity_supplement()
-        sleep(2)
         self.assertEqual(self.driver.title, '营销推广补录')
 
 

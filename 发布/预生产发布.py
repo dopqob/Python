@@ -15,7 +15,7 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 # 连接远程机器 地址、端口、用户名密码
-ssh.connect('116.62.123.240', 22, 'root', 'Jp*css*2017')    # 预生产
+ssh.connect('116.62.170.64', 9085, 'root', 'Jiayan2017')    # 预生产
 
 # 预生产环境
 local = r'C:\Users\o_p_q_o\GitHub\ccloudv2\ccloud-web-admin\target\ccloud-web-admin-0.0.1.war'
@@ -89,7 +89,8 @@ remoteRun(f'cp -r {bakpath}/WEB-INF/classes/db.properties {path}/WEB-INF/classes
 
 # 启动服务,需先用source /etc/profile读入环境变量的数据才能启动
 print('启动服务...')
-remoteRun('source /etc/profile; /usr/local/tomcat-ccloud/bin/startup.sh')
+# remoteRun('source /etc/profile; /usr/local/tomcat-ccloud/bin/startup.sh')
+remoteRun('cd /usr/local/tomcat-ccloud/bin/; ./startup.sh')
 
 # 检查是否运行成功
 print('检查是否启动成功')

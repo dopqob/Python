@@ -63,7 +63,9 @@ class Output(Common):
         order_list = self.filter_order()
         if order_list:  # 如果存在待出库的订单
             order_list[0].click()   # 点击第一个订单展开详情
+            sleep(0.5)
             self.driver.find_element_by_id(self.stock_out).click()  # 点击出库
+            sleep(0.5)
             self.driver.find_element_by_xpath(self.confirm).click()     # 确认
         else:
             logging.info('没有待出库的订单')
@@ -87,6 +89,6 @@ if __name__ == '__main__':
     o.enter_ccloud()
     o.go_mycenter()
     o.enter_output_list()
-    # o.single_output()
-    o.batch_output()
+    o.single_output()
+    # o.batch_output()
     o.return_home_page()

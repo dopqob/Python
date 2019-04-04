@@ -35,7 +35,7 @@ def remoteRun(cmd, printOutput=True):
 
 
 # 检查应用是否运行
-cmd = 'ps -ef | grep tomcat-ccloud | grep -v grep'
+cmd = 'ps -ef | grep tomcat-ccloud/bin | grep -v grep'
 output = remoteRun(cmd)
 
 # 如果存在，则杀死进程
@@ -46,10 +46,10 @@ if '-Dcatalina.home=/usr/local/tomcat-ccloud' in output:
 
     # 去掉空字符串
     parts = [part for part in parts if part]
-    print(parts)
 
     # 获取进程id
     pid = parts[1]
+    print(pid)
 
     # 杀掉进程
     output = remoteRun(f'kill -9 {pid}')

@@ -15,56 +15,56 @@ class AuditTest(StartEnd):
 
     def test_order_audit_pass(self):
         """订单审核-通过"""
-        logging.info('******************** test_order_audit_pass ********************')
+        logging.info('******************** 订单审核-通过 ********************')
         audit = Audit(self.driver)
         audit.enter_ccloud()
         audit.order_audit()
 
     def test_order_audit_refuse(self):
         """订单审核-拒绝"""
-        logging.info('******************** test_order_audit_refuse ********************')
+        logging.info('******************** 订单审核-拒绝 ********************')
         audit = Audit(self.driver)
         audit.enter_ccloud()
         audit.order_audit(flag=False)
 
     def test_customer_audit_pass(self):
         """客户审核-通过"""
-        logging.info('******************** test_customer_audit_pass ********************')
+        logging.info('******************** 客户审核-通过 ********************')
         audit = Audit(self.driver)
         audit.enter_ccloud()
         audit.customer_audit()
 
     def test_customer_audit_refuse(self):
         """客户审核-拒绝"""
-        logging.info('******************** test_customer_audit_refuse ********************')
+        logging.info('******************** 客户审核-拒绝 ********************')
         audit = Audit(self.driver)
         audit.enter_ccloud()
         audit.customer_audit(flag=False)
 
     def test_visit_audit_pass(self):
         """拜访审核-通过"""
-        logging.info('******************** test_visit_audit_pass ********************')
+        logging.info('******************** 拜访审核-通过 ********************')
         audit = Audit(self.driver)
         audit.enter_ccloud()
         audit.visit_audit()
 
     def test_visit_audit_refuse(self):
         """拜访审核-拒绝"""
-        logging.info('******************** test_visit_audit_refuse ********************')
+        logging.info('******************** 拜访审核-拒绝 ********************')
         audit = Audit(self.driver)
         audit.enter_ccloud()
         audit.visit_audit(flag=False)
 
     def test_activity_audit_pass(self):
         """活动审核-通过"""
-        logging.info('******************** test_activity_audit_pass ********************')
+        logging.info('******************** 活动审核-通过 ********************')
         audit = Audit(self.driver)
         audit.enter_ccloud()
         audit.activity_audit()
 
     def test_activity_audit_refuse(self):
         """活动审核-拒绝"""
-        logging.info('******************** test_activity_audit_refuse ********************')
+        logging.info('******************** 活动审核-拒绝 ********************')
         audit = Audit(self.driver)
         audit.enter_ccloud()
         audit.activity_audit(flag=False)

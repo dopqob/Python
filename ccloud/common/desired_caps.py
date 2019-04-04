@@ -24,10 +24,14 @@ def appium_desired(flag=True):
         desired_caps['appPackage'] = data['appPackage']
         desired_caps['appActivity'] = data['appActivity']
         desired_caps['chromeOptions'] = data['chromeOptions']
+
     else:
         desired_caps['appPackage'] = data['appPackage_qywx']
         desired_caps['appActivity'] = data['appActivity_qywx']
         desired_caps['chromeOptions'] = data['chromeOptions_qywx']
+
+    # 出现StackOverflowError UIAutomatorTestRunner时加上此配置
+    desired_caps['disableAndroidWatchers'] = data['disableAndroidWatchers']
 
     desired_caps['platformName'] = data['platformName']
     desired_caps['deviceName'] = data['deviceName']

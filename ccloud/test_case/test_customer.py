@@ -16,7 +16,7 @@ class CustomerTest(StartEnd):
 
     def test_add_customer_with_photo(self):
         """新增客户-带照片"""
-        logging.info('******************** test_add_customer_with_photo ********************')
+        logging.info('******************** 新增客户-带照片 ********************')
         c = Customer(self.driver)
         c.enter_ccloud()
         c.add_customer()
@@ -25,7 +25,7 @@ class CustomerTest(StartEnd):
 
     def test_add_customer_without_photo(self):
         """新增客户-不带照片"""
-        logging.info('******************** test_add_customer_without_photo ********************')
+        logging.info('******************** 新增客户-不带照片 ********************')
         c = Customer(self.driver)
         c.enter_ccloud()
         c.add_customer(photo=False)
@@ -33,7 +33,7 @@ class CustomerTest(StartEnd):
 
     def test_customer_visit(self):
         """常规拜访"""
-        logging.info('******************** test_customer_visit ********************')
+        logging.info('******************** 常规拜访 ********************')
         c = Customer(self.driver)
         c.enter_ccloud()
         c.go_func_group_page()
@@ -42,7 +42,7 @@ class CustomerTest(StartEnd):
 
     def test_customer_visit_supplement(self):
         """常规拜访-补录"""
-        logging.info('******************** test_customer_visit_supplement ********************')
+        logging.info('******************** 常规拜访-补录 ********************')
         c = Customer(self.driver)
         c.enter_ccloud()
         c.go_func_group_page()

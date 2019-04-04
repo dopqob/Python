@@ -16,6 +16,7 @@ noReset: True
 unicodeKeyboard: True
 resetKeyboard: True
 #recreateChromeDriverSessions: True
+disableAndroidWatchers: True
 
 # 微信
 appPackage: com.tencent.mm

@@ -15,7 +15,7 @@ class OutputTest(StartEndQYWX):
 
     def test_single_output(self):
         """单个出库"""
-        logging.info('******************** test_single_output ********************')
+        logging.info('******************** 单个出库 ********************')
         o = Output(self.driver)
         o.enter_ccloud(flag=False)
         o.go_mycenter()
@@ -25,7 +25,7 @@ class OutputTest(StartEndQYWX):
 
     def test_batch_output(self):
         """批量出库"""
-        logging.info('******************** test_batch_output ********************')
+        logging.info('******************** 批量出库 ********************')
         o = Output(self.driver)
         o.enter_ccloud(flag=False)
         o.go_mycenter()

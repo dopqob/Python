@@ -118,7 +118,7 @@ class Customer(Common):
         sleep(1)
 
     @screenshot_error
-    def customer_visit(self, flag=True):
+    def customer_visit(self):
         """常规拜访"""
 
         logging.info('========== customer_visit ==========')
@@ -134,36 +134,35 @@ class Customer(Common):
 
         self.driver.find_element_by_id(self.remark_id).send_keys(create_gbk(30))  # 添加备注信息
 
-        self.take_photo(flag)   # 随机拍1-5张照片
+        self.take_photo()   # 随机拍1-5张照片
 
-        WebDriverWait(self.driver, 10).until(
-            lambda x: x.find_element_by_xpath(self.visit_submit))
         self.driver.find_element_by_xpath(self.visit_submit).click()
+        sleep(1)
 
-        WebDriverWait(self.driver, 10).until(
-            lambda x: x.find_element_by_xpath(self.visit_confirm))
         self.driver.find_element_by_xpath(self.visit_confirm).click()
+        sleep(1)
 
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.visit_complete_id))
         self.driver.find_element_by_id(self.visit_complete_id).click()  # 点击拜访完成按钮
+
         WebDriverWait(self.driver, 10).until(
             lambda x: x.find_element_by_xpath(self.visit_complete_confirm))
-        self.driver.find_element_by_xpath(self.visit_complete_confirm).click()
+        self.driver.find_element_by_xpath(self.visit_complete_confirm).click()  # 拜访完成二次确认
         sleep(1)
 
     @screenshot_error
-    def customer_visit_supplement(self, flag=True):
+    def customer_visit_supplement(self):
         """常规拜访-补录"""
 
         logging.info('========== customer_visit_supplement ==========')
-        # 进入"常规拜访"
+        # 进入"常规拜访(补录）"
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.visit_supplement_id))
         self.driver.find_element_by_id(self.visit_supplement_id).click()
         sleep(1)
 
         self.driver.find_element_by_id(self.remark_id).send_keys(create_gbk(30))   # 添加备注信息
 
-        self.upload_photo(flag)     # 添加照片
+        self.upload_photo()     # 添加照片
 
         WebDriverWait(self.driver, 10).until(
             lambda x: x.find_element_by_xpath(self.visit_submit))
@@ -182,20 +181,34 @@ class Customer(Common):
 
 
 if __name__ == '__main__':
+
+
     driver = appium_desired()
     customer = Customer(driver)
-    customer.enter_ccloud()
+    # customer.enter_ccloud()
 
     # 新增客户
     # customer.add_customer()
     # customer.return_home_page()
 
-    # 常规拜访
-    # customer.go_func_group_page()
-    # customer.customer_visit()
+    customer.enter_wechat_official_account('武汉珈研')
+    for _ in range(50):
+        customer.enter_applet()
+
+
+        # 常规拜访
+        customer.go_func_group_page()
+        customer.customer_visit()
+
+        customer.exit()
+
+        print('第 {} 次执行完毕'.format(_+1))
 
     # 常规拜访补录
-    for _ in range(100):
-        customer.go_func_group_page()
-        customer.customer_visit_supplement()
-        customer.return_home_page()
+    # for _ in range(100):
+    #     print('Start run loop {} '.format(_+1))
+    #     customer.go_func_group_page()
+    #     sleep(1)
+    #     customer.customer_visit_supplement()
+    #     customer.return_home_page()
+    #     sleep(1)

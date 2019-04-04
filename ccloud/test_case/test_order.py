@@ -15,7 +15,7 @@ class OrderTest(StartEnd):
 
     def test_add_product(self):
         """添加商品"""
-        logging.info('******************** test_add_product ********************')
+        logging.info('******************** 添加商品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.enter_normal_order()
@@ -23,7 +23,7 @@ class OrderTest(StartEnd):
 
     def test_empty_cart(self):
         """清空购物车"""
-        logging.info('******************** test_empty_cart ********************')
+        logging.info('******************** 清空购物车 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.enter_normal_order()
@@ -33,7 +33,7 @@ class OrderTest(StartEnd):
     # @unittest.skip('')
     def test_order_one_normal(self):
         """普通订单-单一商品"""
-        logging.info('******************** test_order_one_normal ********************')
+        logging.info('******************** 普通订单-单一商品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.enter_normal_order()
@@ -44,7 +44,7 @@ class OrderTest(StartEnd):
     # @unittest.skip('')
     def test_order_one_gift(self):
         """普通订单-赠品单-单一商品"""
-        logging.info('******************** test_order_one_gift ********************')
+        logging.info('******************** 普通订单-赠品单-单一商品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.enter_normal_order()
@@ -55,7 +55,7 @@ class OrderTest(StartEnd):
     # @unittest.skip('')
     def test_order_variety_normal(self):
         """普通订单-多种商品"""
-        logging.info('******************** test_order_variety_normal ********************')
+        logging.info('******************** 普通订单-多种商品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.enter_normal_order()
@@ -66,7 +66,7 @@ class OrderTest(StartEnd):
     # @unittest.skip('')
     def test_order_variety_gift(self):
         """普通订单-多种商品-含赠品"""
-        logging.info('******************** test_order_variety_gift ********************')
+        logging.info('******************** 普通订单-多种商品-含赠品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.enter_normal_order()
@@ -76,7 +76,7 @@ class OrderTest(StartEnd):
 
     def test_mashup_one_normal(self):
         """聚合订单-单一商品"""
-        logging.info('******************** test_mashup_one_normal ********************')
+        logging.info('******************** 聚合订单-单一商品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.go_func_group_page()
@@ -86,7 +86,7 @@ class OrderTest(StartEnd):
 
     def test_mashup_one_gift(self):
         """聚合订单-赠品单-单一商品"""
-        logging.info('******************** test_mashup_one_gift ********************')
+        logging.info('******************** 聚合订单-赠品单-单一商品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.go_func_group_page()
@@ -96,7 +96,7 @@ class OrderTest(StartEnd):
 
     def test_mashup_variety_normal(self):
         """聚合订单-多种商品"""
-        logging.info('******************** test_mashup_variety_normal ********************')
+        logging.info('******************** 聚合订单-多种商品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.go_func_group_page()
@@ -106,7 +106,7 @@ class OrderTest(StartEnd):
 
     def test_mashup_variety_gift(self):
         """聚合订单-多种商品-含赠品"""
-        logging.info('******************** test_mashup_variety_gift ********************')
+        logging.info('******************** 聚合订单-多种商品-含赠品 ********************')
         o = Order(self.driver)
         o.enter_ccloud()
         o.go_func_group_page()

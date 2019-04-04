@@ -152,6 +152,7 @@ class NormalActivity(ActivityCommon):
         # 进入"活动快捷执行"
         WebDriverWait(self.driver, 20).until(lambda x: x.find_element_by_id(self.act_enter_id))
         self.driver.find_element_by_id(self.act_enter_id).click()
+        sleep(1)
 
         # 如果出现草稿箱已满的提示，点取消
         # self.drafts_box()
@@ -396,6 +397,7 @@ class MarketingCampaign(ActivityCommon):
 
         # 再次确认
         self.reconfirm()
+        sleep(2)
 
     @screenshot_error
     def groupon_activity_supplement(self, flag=True):
@@ -434,6 +436,7 @@ class MarketingCampaign(ActivityCommon):
 
         # 再次确认
         self.reconfirm()
+        sleep(2)
 
     @screenshot_error
     def feast_activity_supplement(self, flag=True):
@@ -482,19 +485,20 @@ class MarketingCampaign(ActivityCommon):
 
         # 再次确认
         self.reconfirm()
+        sleep(2)
 
 
 if __name__ == '__main__':
     driver = appium_desired()
-    # act = NormalActivity(driver)
-    # act.enter_ccloud()
-    # for _ in range(1):
-    #     act.go_func_group_page()
-    #     act.normal_activity()
-    #     act.return_home_page()
-    market = MarketingCampaign(driver)
-    market.enter_ccloud()
-    for _ in range(2):
+    act = NormalActivity(driver)
+    act.enter_ccloud()
+    for _ in range(1):
+        act.go_func_group_page()
+        act.normal_activity()
+        act.return_home_page()
+    # market = MarketingCampaign(driver)
+    # market.enter_ccloud()
+    # for _ in range(2):
         # market.go_mycenter()
         # market.cultivate_activity()
         # market.return_home_page()
@@ -505,12 +509,12 @@ if __name__ == '__main__':
         # market.feast_activity()
         # market.return_home_page()
         # market.go_mycenter()
-        market.cultivate_activity_supplement()
-        market.return_home_page()
-        market.go_mycenter()
-        market.groupon_activity_supplement()
-        market.return_home_page()
-        market.go_mycenter()
-        market.feast_activity_supplement()
-        market.return_home_page()
-        logging.info('************* 第 {} 次执行完毕 *************'.format(_+1))
+        # market.cultivate_activity_supplement()
+        # market.return_home_page()
+        # market.go_mycenter()
+        # market.groupon_activity_supplement()
+        # market.return_home_page()
+        # market.go_mycenter()
+        # market.feast_activity_supplement()
+        # market.return_home_page()
+        # logging.info('************* 第 {} 次执行完毕 *************'.format(_+1))

@@ -15,7 +15,7 @@ class RefundTest(StartEnd):
 
     def test_order_refund(self):
         """订单退货"""
-        logging.info('******************** test_order_refund ********************')
+        logging.info('******************** 订单退货 ********************')
         r = Refund(self.driver)
         r.enter_ccloud()
         r.go_mycenter()
@@ -25,7 +25,7 @@ class RefundTest(StartEnd):
 
     def test_free_refund(self):
         """自由退货"""
-        logging.info('******************** test_free_refund ********************')
+        logging.info('******************** 自由退货 ********************')
         r = Refund(self.driver)
         r.enter_ccloud()
         r.go_mycenter()

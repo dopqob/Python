@@ -117,7 +117,7 @@ class Refund(Common):
         width = self.driver.get_window_size().get('width')  # 获取屏幕宽度
         height = self.driver.get_window_size().get('height')  # 获取屏幕高度
         self.driver.swipe(width * 0.5, height * 0.9, width * 0.5, height * 0.1)  # 上滑加载更多客户
-        sleep(1)
+        sleep(3)
         self.swich_webview(self.h5_context)  # 切换到H5视图继续后面的操作
 
         customers = self.driver.find_elements_by_id(self.customers)  # 获取客户

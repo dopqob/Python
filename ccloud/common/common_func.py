@@ -49,11 +49,11 @@ class Common(BaseView):
         if flag:
             self.enter_wechat_official_account('武汉珈研')  # 进入指定微信公众号
             self.enter_applet()     # 进入应用
-            self.swich_webview(self.h5_context)     # 切换到h5视图
-            self.select_accout('华中科技')          # 选择账套
+
         else:
             self.enter_qywx_applet('慧订货')   # 进入企业微信的慧订货应用
-            self.swich_webview(self.h5_context)  # 切换到h5视图
+
+        time.sleep(1)
 
     @screenshot_error
     def enter_wechat_official_account(self, account_name):
@@ -79,6 +79,9 @@ class Common(BaseView):
 
         self.driver.find_element_by_id(self.application_id).click()     # Meizu MX3
         # self.driver.find_elements_by_id(app_id)[0].click()   # Vivo x9
+        self.swich_webview(self.h5_context)  # 切换到h5视图
+        # self.select_accout('华中科技')  # 选择账套
+        time.sleep(1)
 
     @screenshot_error
     def enter_qywx_applet(self, app_name):
@@ -95,6 +98,8 @@ class Common(BaseView):
                 if app.text == app_name:
                     app.click()
                     break
+        self.swich_webview(self.h5_context)  # 切换到h5视图
+        time.sleep(1)
 
     @screenshot_error
     def swich_webview(self, webview):
@@ -152,6 +157,7 @@ class Common(BaseView):
         css = '.wy-foot-menu>a:last-child'
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_css_selector(css))
         self.driver.find_element_by_css_selector(css).click()
+        time.sleep(1)
 
     @screenshot_error
     def go_func_group_page(self):
@@ -162,11 +168,12 @@ class Common(BaseView):
 
         WebDriverWait(self.driver, 20).until(lambda x: x.find_element_by_id("customerVisits"))
         self.driver.find_element_by_id("customerVisits").click()  # 从首页的客户拜访进入客户列表
-        time.sleep(2)
+        time.sleep(1)
 
         customers = self.driver.find_elements_by_xpath('//*[@id="customerList"]/div')  # 获取当前页客户
         if customers:
             customers[random.randint(0, len(customers)-1)].click()  # 随机选一个用户
+            time.sleep(1)
         else:
             logging.warning('没有客户，请先添加客户')
 
@@ -176,11 +183,13 @@ class Common(BaseView):
             self.driver.find_element_by_xpath('//a[text()="确定"]').click()
 
         # 定位失败时刷新定位
+        WebDriverWait(self.driver, 20).until(lambda x: x.find_element_by_id("location-span"))
         location = self.driver.find_element_by_id('location-span')
         if location.text == '请手动刷新定位':
             self.driver.find_element_by_id('refresh').click()  # 刷新定位
             time.sleep(3)
 
+        time.sleep(1)
         # 如果出现定位失败弹窗，点击确定，并刷新定位
         # if self.is_element_exist('weui-dialog', 'class'):  # 判断元素节点是否存在
         #     self.driver.find_element_by_class_name('primary').click()
@@ -247,7 +256,7 @@ class Common(BaseView):
 
         for i in range(random.randint(1, 4)):
             # for i in range(4):
-            self.driver.find_element_by_class_name('uploaderInput').click()
+            self.driver.find_element_by_class_name('picture1BtnId').click()
             self.swich_webview(self.context)  # 切换到NATIVE_APP视图控制照片选择
 
             # 企业微信多两个步骤
@@ -257,42 +266,53 @@ class Common(BaseView):
                 self.driver.find_element_by_xpath(
                     '//android.widget.ImageButton[@content-desc="显示根目录"]').click()
 
-            # self.driver.find_element_by_id('com.android.gallery3d:id/shutter_button').click() # Meizu MX3
-            # self.driver.find_element_by_id('com.android.gallery3d:id/image_capture_done_img').click() # Meizu MX3
-            self.driver.find_elements_by_id('android:id/title')[-1].click()     # 选择系统相册
-            num = self.driver.find_elements_by_id('com.vivo.gallery:id/dreamway_folder_count')[0].text  # 获取照片数量
-            self.driver.find_elements_by_id(
-                'com.vivo.gallery:id/dreamway_folder_info')[0].click()  # 选择相机相册
-
+            self.driver.find_elements_by_id('vivo:id/text1')[-1].click()
             width = self.driver.get_window_size().get('width')  # 获取屏幕宽度
             height = self.driver.get_window_size().get('height')  # 获取屏幕高度
+            self.driver.tap([(width * 0.9, height * 0.4), ])
+            photos = self.driver.find_elements_by_id('com.android.documentsui:id/thumbnail')
+            photos[random.randint(0, len(photos)-1)].click()
+            time.sleep(3)  # 等待图片上传完成
+
+            self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
             time.sleep(0.5)
-            if int(num) == i+1:
-                self.driver.tap([(width * 0.2 * (i+1), height * 0.2), ])
-                time.sleep(3)  # 等待图片上传完成
+            if self.is_element_exist('//h3[text()="照片没有定位信息"]', 'xpath'):
+                self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
+            if self.is_element_exist('//h3[text()="照片定位不一致"]', 'xpath'):
+                self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
 
-                self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
-                time.sleep(0.5)
-                if self.is_element_exist('//h3[text()="照片没有定位信息"]', 'xpath'):
-                    self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
-                if self.is_element_exist('//h3[text()="照片定位不一致"]', 'xpath'):
-                    self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
-                break
-            else:
-                self.driver.tap([(width * 0.2 * (i + 1), height * 0.2), ])
-                time.sleep(3)  # 等待图片上传完成
+            # self.driver.find_elements_by_id('android:id/title')[-1].click()     # 选择系统相册
+            # num = self.driver.find_elements_by_id('com.vivo.gallery:id/dreamway_folder_count')[0].text  # 获取照片数量
+            # self.driver.find_elements_by_id(
+            #     'com.vivo.gallery:id/dreamway_folder_info')[0].click()  # 选择相机相册
 
-                self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
-                time.sleep(0.5)
-                if self.is_element_exist('//h3[text()="照片没有定位信息"]', 'xpath'):
-                    self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
-                if self.is_element_exist('//h3[text()="照片定位不一致"]', 'xpath'):
-                    self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
+            # time.sleep(0.5)
+            # if int(num) == i+1:
+            #     self.driver.tap([(width * 0.2 * (i+1), height * 0.2), ])
+            #     time.sleep(3)  # 等待图片上传完成
+            #
+            #     self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
+            #     time.sleep(0.5)
+            #     if self.is_element_exist('//h3[text()="照片没有定位信息"]', 'xpath'):
+            #         self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
+            #     if self.is_element_exist('//h3[text()="照片定位不一致"]', 'xpath'):
+            #         self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
+            #     break
+            # else:
+            #     self.driver.tap([(width * 0.2 * (i + 1), height * 0.2), ])
+            #     time.sleep(3)  # 等待图片上传完成
+            #
+            #     self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作
+            #     time.sleep(0.5)
+            #     if self.is_element_exist('//h3[text()="照片没有定位信息"]', 'xpath'):
+            #         self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
+            #     if self.is_element_exist('//h3[text()="照片定位不一致"]', 'xpath'):
+            #         self.driver.find_element_by_xpath('//span[text()="关闭"]').click()
 
     @screenshot_error
-    def exit(self, close_id):
+    def exit(self):
         self.driver.switch_to.context('NATIVE_APP')
-        self.driver.find_element_by_id(close_id).click()
+        self.driver.find_element_by_id(self.close).click()
 
     def take_screenshot(self, img_name):
         """

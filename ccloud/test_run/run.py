@@ -14,7 +14,6 @@ dir_path = '../test_case'
 
 # 加载测试用例，目录下以 "test" 开头的 ".py"文件
 discover = unittest.defaultTestLoader.discover(dir_path, pattern='test*.py')
-# discover = unittest.defaultTestLoader.discover(dir_path, pattern='test_customer_qywx.py')
 
 # 报告输出路径
 file = create_report_file()

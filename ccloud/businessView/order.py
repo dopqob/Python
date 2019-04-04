@@ -76,6 +76,7 @@ class Order(Common):
                 WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.num_input_xpath))
                 self.driver.find_element_by_xpath(self.num_input_xpath).clear().send_keys(random.randint(1, 4))
                 self.driver.find_element_by_id(self.confirm_input_id).click()
+        sleep(1)
 
     # @screenshot_error
     def empty_cart(self):
@@ -132,7 +133,7 @@ class Order(Common):
         width = self.driver.get_window_size().get('width')  # 获取屏幕宽度
         height = self.driver.get_window_size().get('height')  # 获取屏幕高度
         self.driver.swipe(width * 0.5, height * 0.9, width * 0.5, height * 0.1)  # 上滑加载更多客户
-        sleep(1)
+        sleep(2)
         self.swich_webview(self.h5_context)  # 切换到H5视图继续后面的操作
 
         customers = self.driver.find_elements_by_id(self.customer_info_id)  # 获取客户
@@ -153,8 +154,9 @@ class Order(Common):
         """进入聚合下单"""
 
         logging.info('========== enter_mashup_order ==========')
-        WebDriverWait(self.driver, 20).until(lambda x: x.find_element_by_id(self.mashup_order_id))
+
         self.driver.find_element_by_id(self.mashup_order_id).click()
+        sleep(1)
 
     @screenshot_error
     def mashup_order(self, isgift=True):
@@ -167,18 +169,20 @@ class Order(Common):
 
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.place_order_id))
         self.driver.find_element_by_id(self.place_order_id).click()  # 下单
-
+        sleep(1)
+        
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.submit_order_id))
         self.driver.find_element_by_id(self.submit_order_id).click()  # 提交订单
+        sleep(1)
 
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.order_confirm_xpath))
         self.driver.find_element_by_xpath(self.order_confirm_xpath).click()  # 下单二次确定
+        # sleep(3)
 
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.visit_complete_id))
         self.driver.find_element_by_id(self.visit_complete_id).click()  # 点击拜访完成按钮
-        WebDriverWait(self.driver, 10).until(
-            lambda x: x.find_element_by_xpath(self.visit_complete_confirm))
-        self.driver.find_element_by_xpath(self.visit_complete_confirm).click()
+        sleep(1)
+
+        self.driver.find_element_by_xpath(self.visit_complete_confirm).click()  # 拜访完成二次确认
         sleep(1)
 
 
