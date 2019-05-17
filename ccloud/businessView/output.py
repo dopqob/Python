@@ -32,22 +32,25 @@ class Output(Common):
         """进入出库单列表"""
         logging.info('========== enter_output_list ==========')
         self.driver.find_element_by_xpath(self.delivery_list).click()
+        sleep(1)
 
     def filter_order(self):
         """筛选待出库的订单"""
         logging.info('========== filter_order ==========')
         self.driver.find_element_by_id(self.status_filter).click()  # 点击订单状态
+        sleep(0.5)
         self.driver.find_elements_by_class_name(self.check_label)[1].click()  # 选择待出库
-        sleep(1)
+        sleep(0.5)
 
         # 如果今天没有待出库的订单，循环调整时间直到发现待出库的订单
         if not self.driver.find_elements_by_class_name(self.order_list):
             i = 1
             while True:
                 self.driver.find_element_by_id(self.date_filter).click()
+                sleep(0.5)
                 conditions = self.driver.find_elements_by_class_name(self.check_label)
                 conditions[i].click()
-                sleep(1)
+                sleep(0.5)
                 if self.driver.find_elements_by_class_name(self.order_list):
                     return self.driver.find_elements_by_class_name(self.order_list)
                 i += 1
@@ -77,8 +80,9 @@ class Output(Common):
         order_list = self.filter_order()
         if order_list:
             self.driver.find_element_by_id(self.batch).click()
+            sleep(1)
             self.driver.find_element_by_xpath(self.batch_confirm).click()
-            sleep(3)
+            sleep(5)
         else:
             logging.info('没有待出库的订单')
 

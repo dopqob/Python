@@ -111,7 +111,9 @@ class Refund(Common):
         self.driver.find_element_by_xpath(self.add_refund).click()
         self.add_product(random.randint(1, 3))
         self.driver.find_element_by_id(self.next_step).click()
+        sleep(0.5)
         self.driver.find_element_by_xpath(self.choose_customer).click()
+        sleep(0.5)
 
         self.swich_webview(self.context)  # 切换到APP视图做swipe操作
         width = self.driver.get_window_size().get('width')  # 获取屏幕宽度
@@ -121,17 +123,23 @@ class Refund(Common):
         self.swich_webview(self.h5_context)  # 切换到H5视图继续后面的操作
 
         customers = self.driver.find_elements_by_id(self.customers)  # 获取客户
-        index = random.randint(0, len(customers) - 2)  # 这个地方理论上应该-1，但取-1时会报错，-2时不会
-        customers[index].click()
+        # index = random.randint(0, len(customers) - 2)  # 这个地方理论上应该-1，但取-1时会报错，-2时不会
+        # customers[len(customers)-1].click()
+        random.choice(customers).click()
+        sleep(0.5)
 
         self.driver.find_element_by_id(self.choose_warehouse).click()  # 选择仓库
         warehouses = self.driver.find_elements_by_class_name(self.check_label)
-        warehouses[random.randint(0, len(warehouses) - 1)].click()
+        # warehouses[random.randint(0, len(warehouses) - 1)].click()
+        random.choice(warehouses).click()
+        sleep(0.5)
 
         self.driver.find_element_by_id(self.next_step).click()  # 确认退货
+        sleep(0.5)
 
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.confirm))
         self.driver.find_element_by_xpath(self.confirm).click()  # 下单二次确定
+        sleep(0.5)
 
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.goto_refund_list))
         self.driver.find_element_by_xpath(self.goto_refund_list).click()  # 跳转退货单列表
@@ -143,5 +151,5 @@ if __name__ == '__main__':
     r.enter_ccloud()
     r.go_mycenter()
     r.enter_refund()
-    r.order_refund()
-    # r.free_refund()
+    # r.order_refund()
+    r.free_refund()

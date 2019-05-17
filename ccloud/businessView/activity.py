@@ -54,7 +54,8 @@ class ActivityCommon(Common):
         sleep(1)
 
         acts = self.driver.find_elements_by_class_name(self.check_label_class)
-        acts[random.randint(0, len(acts) - 1)].click()
+        # acts[random.randint(0, len(acts) - 1)].click()
+        random.choice(acts).click()
         sleep(1)
 
     def choose_expense(self):
@@ -63,12 +64,14 @@ class ActivityCommon(Common):
         logging.info('========== choose_expense ==========')
 
         self.driver.find_element_by_id(self.expense_id).click()
-        sleep(1)
+        sleep(0.5)
 
         costs = self.driver.find_elements_by_class_name(self.check_label_class)
-        costs[random.randint(0, len(costs) - 1)].click()
+        # costs[random.randint(0, len(costs) - 1)].click()
+        random.choice(costs).click()
+        sleep(0.5)
         self.driver.find_element_by_xpath(self.confirm_xpath).click()
-        sleep(1)
+        sleep(0.5)
 
     def apply_num(self):
         """赠送数量"""
@@ -126,6 +129,7 @@ class ActivityCommon(Common):
             if submit.text == '提交':
                 submit.click()
                 break
+        sleep(0.5)
 
     def reconfirm(self):
         """再次确认"""
@@ -202,10 +206,11 @@ class MarketingCampaign(ActivityCommon):
         WebDriverWait(self.driver, 20).until(
             lambda x: x.find_element_by_xpath(self.marketing_enter_xpath))
         self.driver.find_element_by_xpath(self.marketing_enter_xpath).click()
+        sleep(0.5)
 
         act_kinds = self.driver.find_elements_by_class_name(self.act_choose_class)
         act_kinds[num].click()
-        sleep(5)
+        sleep(3)
 
     def choose_activity_supplement_type(self, num):
         """进入营销补录并选择活动类型"""
@@ -216,10 +221,11 @@ class MarketingCampaign(ActivityCommon):
         WebDriverWait(self.driver, 20).until(
             lambda x: x.find_element_by_xpath(self.marketing_supplement_xpath))
         self.driver.find_element_by_xpath(self.marketing_supplement_xpath).click()
+        sleep(0.5)
 
         act_kinds = self.driver.find_elements_by_class_name(self.act_choose_class)
         act_kinds[num].click()
-        sleep(5)
+        sleep(1)
 
     @screenshot_error
     def cultivate_activity(self, flag=True):
@@ -320,9 +326,11 @@ class MarketingCampaign(ActivityCommon):
         # 选择宴席类型
         WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.banquet_type_id))
         self.driver.find_element_by_id(self.banquet_type_id).click()
+        sleep(0.5)
         banquets = self.driver.find_elements_by_class_name(self.check_label_class)
-        banquets[random.randint(0, len(banquets) - 1)].click()
-        # sleep(1)
+        # banquets[random.randint(0, len(banquets) - 1)].click()
+        random.choice(banquets).click()
+        sleep(1)
 
         # 选择活动
         self.choose_act()

@@ -6,12 +6,35 @@
 import random
 import logging
 from time import sleep
-from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
 from ccloud.common.desired_caps import appium_desired
 from ccloud.common.common_func import Common, screenshot_error
 
 
 class Order(Common):
+    ELEMENT = {
+        '合计数量': (By.ID, 'totalNum'),
+        '大单位输入框': (By.ID, 'bigNum'),
+        '小单位输入框': (By.ID, 'smallNum'),
+        '确认输入': (By.ID, 'confirm-input'),
+        '购物车': (By.ID, 'shoppingCart'),
+        '添加商品': (By.ID, 'addGoods'),
+        '勾选赠品': (By.NAME, 'isGift'),
+        '下单': (By.ID, 'placeOrder'),
+        '侧边客户列表': (By.ID, 'combin-filter'),
+        '客户': (By.ID, 'customerInfo'),
+        '提交订单': (By.ID, 'placeOrder'),
+        '聚合下单': (By.ID, 'order'),
+        '拜访完成': (By.ID, 'visitEnd'),
+        '删除商品': (By.CLASS_NAME, 'icon-trash-o'),
+        '首页下单': (By.XPATH, '//*[@id="home"]/div[3]/div[2]/a[1]'),
+        '输入商品数量': (By.XPATH, '/html/body/div[5]/input'),
+        '删除确认': (By.XPATH, '//a[text()="确定"]'),
+        '选择客户': (By.XPATH, '//*[@id="form"]/div[1]/div[1]'),
+        '下单二次确认': (By.XPATH, '/html/body/div[4]/div[3]/a[2]'),
+        '跳转订单列表': (By.XPATH, '/html/body/div[4]/div[2]/a[1]'),
+        '拜访完成二次确认': (By.XPATH, '//a[contains(text(),"确定")]'),
+    }
 
     # id
     total_num_id = 'totalNum'   # 合计数量
@@ -43,8 +66,7 @@ class Order(Common):
         """通过首页进入下单页面"""
 
         logging.info('========== enter_normal_order ==========')
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.order_enter_xpath))
-        self.driver.find_element_by_xpath(self.order_enter_xpath).click()
+        self.click(self.ELEMENT['首页下单'])
 
     @screenshot_error
     def add_product(self, kinds=1):
@@ -55,27 +77,25 @@ class Order(Common):
         logging.info('========== add_product ==========')
 
         # 查看合计数量，如果数量不为0，先进购物车清空商品
-        content = self.driver.find_element_by_id(self.total_num_id).text
+        content = self.find_element(self.ELEMENT['合计数量']).text
         if content[1] != '0':
             self.empty_cart()
 
         # 选择商品
-        big = self.driver.find_elements_by_id(self.big_num_id)  # 获取所有大单位输入框
-        small = self.driver.find_elements_by_id(self.small_num_id)  # 获取所有小单位输入框
+        big = self.find_elements(self.ELEMENT['大单位输入框'])  # 获取所有大单位输入框
+        small = self.find_elements(self.ELEMENT['小单位输入框'])  # 获取所有大单位输入框
         if big:
             for k in range(kinds):
                 sleep(0.5)
-                index = random.randint(1, len(big) - 1)
-                big[index].click()
-                WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.num_input_xpath))
-                self.driver.find_element_by_xpath(self.num_input_xpath).clear().send_keys(random.randint(0, 3))
-                self.driver.find_element_by_id(self.confirm_input_id).click()
+                _i = random.randint(0, len(big)-1)
+                big[_i].click()
+                self.send_keys(self.ELEMENT['输入商品数量'], random.randint(0, 3))
+                self.click(self.ELEMENT['确认输入'])
 
                 sleep(0.5)
-                small[index].click()
-                WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.num_input_xpath))
-                self.driver.find_element_by_xpath(self.num_input_xpath).clear().send_keys(random.randint(1, 4))
-                self.driver.find_element_by_id(self.confirm_input_id).click()
+                small[_i].click()
+                self.send_keys(self.ELEMENT['输入商品数量'], random.randint(1, 3))
+                self.click(self.ELEMENT['确认输入'])
         sleep(1)
 
     # @screenshot_error
@@ -85,17 +105,17 @@ class Order(Common):
         logging.info('========== empty_cart ==========')
 
         if self.driver.title == '产品列表':
-            self.driver.find_element_by_id(self.shopping_cart_id).click()
+            self.click(self.ELEMENT['购物车'])
 
             # 通过循环删除购物车所有商品
             if self.driver.title == '购物车':
-                del_icons = self.driver.find_elements_by_class_name(self.del_class)
+                del_icons = self.find_elements(self.ELEMENT['删除商品'])
                 for icon in del_icons:
                     icon.click()
-                    self.driver.find_element_by_xpath(self.del_confirm_xpath).click()
+                    self.click(self.ELEMENT['删除确认'])
                     sleep(0.5)
 
-                self.driver.find_element_by_id(self.add_goods_id).click()  # 返回商品列表
+                self.click(self.ELEMENT['添加商品'])
 
     # @screenshot_error
     def add_gift(self):
@@ -104,14 +124,14 @@ class Order(Common):
         logging.info('========== add_gift ==========')
 
         if self.driver.title == '产品列表':
-            self.driver.find_element_by_id(self.shopping_cart_id).click()
+            self.click(self.ELEMENT['购物车'])
 
             # 获取所有的赠品框，随机勾选
             if self.driver.title == '购物车':
-                gift_icons = self.driver.find_elements_by_name(self.gift_id)
-                gift_icons[random.randint(0, len(gift_icons) - 1)].click()
+                select_gift = self.find_elements(self.ELEMENT['勾选赠品'])
+                random.choice(select_gift).click()
 
-                self.driver.find_element_by_id(self.add_goods_id).click()  # 返回商品列表
+                self.click(self.ELEMENT['添加商品'])
 
     @screenshot_error
     def place_order(self, isgift=True):
@@ -122,32 +142,36 @@ class Order(Common):
             sleep(0.5)
             self.add_gift()
 
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.place_order_id))
-        self.driver.find_element_by_id(self.place_order_id).click()  # 下单
+        self.click(self.ELEMENT['下单'])
 
-        # 选择客户按钮
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.customer_xpath))
-        self.driver.find_element_by_xpath(self.customer_xpath).click()
+        self.click(self.ELEMENT['选择客户'])
 
         self.swich_webview(self.context)  # 切换到APP视图做swipe操作
-        width = self.driver.get_window_size().get('width')  # 获取屏幕宽度
-        height = self.driver.get_window_size().get('height')  # 获取屏幕高度
+
+        width = self.get_window_size()['width']  # 获取屏幕宽度
+        height = self.get_window_size()['height']  # 获取屏幕高度
         self.driver.swipe(width * 0.5, height * 0.9, width * 0.5, height * 0.1)  # 上滑加载更多客户
         sleep(2)
         self.swich_webview(self.h5_context)  # 切换到H5视图继续后面的操作
 
-        customers = self.driver.find_elements_by_id(self.customer_info_id)  # 获取客户
-        index = random.randint(0, len(customers) - 2)  # 这个地方理论上应该-1，但取-1时会报错，-2时不会
-        customers[index].click()
+        customers = self.find_elements(self.ELEMENT['客户'])  # 获取客户列表
+        random.choice(customers).click()
+        sleep(0.5)
 
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.submit_order_id))
-        self.driver.find_element_by_id(self.submit_order_id).click()  # 提交订单
+        # assert self.element_is_dispalyed(self.ELEMENT['侧边客户列表'])
 
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.order_confirm_xpath))
-        self.driver.find_element_by_xpath(self.order_confirm_xpath).click()  # 下单二次确定
+        while True:
+            if self.element_is_dispalyed(self.ELEMENT['侧边客户列表']):
+                logging.WARNING('********** 重新选择客户 **********')
+                random.choice(customers).click()
+            else:
+                break
 
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath(self.goto_orderlist_xpath))
-        self.driver.find_element_by_xpath(self.goto_orderlist_xpath).click()  # 跳转订单列表
+        self.click(self.ELEMENT['提交订单'])
+        sleep(0.5)
+        self.click(self.ELEMENT['下单二次确认'])
+        sleep(0.5)
+        self.click(self.ELEMENT['跳转订单列表'])
 
     @screenshot_error
     def enter_mashup_order(self):
@@ -155,7 +179,7 @@ class Order(Common):
 
         logging.info('========== enter_mashup_order ==========')
 
-        self.driver.find_element_by_id(self.mashup_order_id).click()
+        self.click(self.ELEMENT['聚合下单'])
         sleep(1)
 
     @screenshot_error
@@ -167,22 +191,18 @@ class Order(Common):
             sleep(0.5)
             self.add_gift()
 
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.place_order_id))
-        self.driver.find_element_by_id(self.place_order_id).click()  # 下单
+        self.find_element(self.ELEMENT['下单'])
         sleep(1)
         
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.submit_order_id))
-        self.driver.find_element_by_id(self.submit_order_id).click()  # 提交订单
+        self.find_element(self.ELEMENT['提交订单'])
         sleep(1)
 
-        self.driver.find_element_by_xpath(self.order_confirm_xpath).click()  # 下单二次确定
-        # sleep(3)
+        self.find_element(self.ELEMENT['下单二次确认'])
 
-        WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_id(self.visit_complete_id))
-        self.driver.find_element_by_id(self.visit_complete_id).click()  # 点击拜访完成按钮
+        self.find_element(self.ELEMENT['拜访完成按钮'])
         sleep(1)
 
-        self.driver.find_element_by_xpath(self.visit_complete_confirm).click()  # 拜访完成二次确认
+        self.find_element(self.ELEMENT['拜访完成二次确认'])
         sleep(1)
 
 
@@ -191,16 +211,17 @@ if __name__ == '__main__':
     order = Order(driver)
     flag = [True, False]
     order.enter_ccloud()
-    for i in range(3):
-        order.enter_normal_order()
-        order.add_product(random.randint(1, 3))
-        order.place_order(isgift=random.choice(flag))
-        order.return_home_page()
+    # for i in range(50):
+    #     order.enter_normal_order()
+    #     order.add_product(random.randint(1, 3))
+    #     order.place_order(isgift=random.choice(flag))
+    #     order.return_home_page()
 
-        # order.go_func_group_page()
-        # order.enter_mashup_order()
-        # order.add_product(random.randint(1, 3))
-        # order.mashup_order(isgift=random.choice(flag))
-        # order.return_home_page()
-    # order.add_product(3)
-    # order.empty_cart()
+    # order.go_func_group_page()
+    # order.enter_mashup_order()
+    # order.add_product(random.randint(1, 3))
+    # order.mashup_order(isgift=random.choice(flag))
+    # order.return_home_page()
+    order.enter_normal_order()
+    order.add_product(3)
+    order.empty_cart()

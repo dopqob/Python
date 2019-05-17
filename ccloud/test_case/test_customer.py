@@ -20,7 +20,6 @@ class CustomerTest(StartEnd):
         c = Customer(self.driver)
         c.enter_ccloud()
         c.add_customer()
-        sleep(3)
         self.assertEqual(self.driver.title, '客户列表')
 
     def test_add_customer_without_photo(self):

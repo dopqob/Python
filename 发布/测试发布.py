@@ -93,7 +93,7 @@ remoteRun('source /etc/profile; /usr/local/tomcat-ccloud/bin/startup.sh')
 
 # 检查是否运行成功
 print('检查是否启动成功')
-output = remoteRun('sleep 20; ps -ef | grep tomcat-ccloud | grep -v grep')
+output = remoteRun('sleep 20; ps -ef | grep tomcat-ccloud/bin | grep -v grep')
 if '-Dcatalina.home=/usr/local/tomcat-ccloud' in output:
     print('服务运行成功')
 else:
@@ -101,4 +101,4 @@ else:
     sys.exit()
 
 # 浏览器访问登录页面验证服务是否启动
-webdriver.Chrome().get('http://test.juster.com.cn/admin')       # 测试
+webdriver.Chrome().get('http://www.juster.com.cn/admin')       # 预生产

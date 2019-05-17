@@ -61,28 +61,37 @@ class Customer(Common):
 
         WebDriverWait(self.driver, 20).until(lambda x: x.find_element_by_xpath(self.addcustomer_entrance))
         self.driver.find_element_by_xpath(self.addcustomer_entrance).click()  # 进入新增客户页面
+        sleep(0.5)
 
         # 填写客户名、联系人、手机号
         kinds = ['小店', '副食', '酒楼', '批发', '烟酒', '便利店', '小卖部', '超市', '百货']
         customer_name = create_name() + random.choice(kinds)
         self.driver.find_element_by_id(self.customer_name_id).send_keys(customer_name)
+        sleep(0.5)
         self.driver.find_element_by_id(self.contact_id).send_keys(create_name())
+        sleep(0.5)
         self.driver.find_element_by_id(self.mobile_id).send_keys(create_phone())
+        sleep(0.5)
 
         # 选择客户类型
         self.driver.find_element_by_id(self.customer_type_id).click()
         typelist = ['零售终端', '批发', '餐饮', '其他', '商超']
         types = self.driver.find_elements_by_class_name(self.check_label)
         while True:
-            t = int(random.randint(0, len(types)-1))
-            if types[t].text in typelist:
-                types[t].click()
+            # t = int(random.randint(0, len(types)-1))
+            t = random.choice(types)
+            if t.text in typelist:
+                t.click()
                 break
+        sleep(0.5)
 
         # 选择客户等级
         self.driver.find_element_by_id(self.sub_type_id).click()
+        sleep(0.5)
         sub_types = self.driver.find_elements_by_class_name(self.check_label)
-        sub_types[random.randint(0, len(sub_types)-1)].click()
+        # sub_types[random.randint(0, len(sub_types)-1)].click()
+        random.choice(sub_types).click()
+        sleep(0.5)
 
         # 选择配送地址
         self.driver.find_element_by_id(self.province_id).click()
@@ -114,8 +123,9 @@ class Customer(Common):
         #     self.driver.hide_keyboard()
 
         self.driver.find_element_by_id(self.add_id).click()
+        sleep(0.5)
         self.driver.find_element_by_xpath(self.addcustomer_confirm).click()
-        sleep(1)
+        sleep(3)
 
     @screenshot_error
     def customer_visit(self):
@@ -192,7 +202,7 @@ if __name__ == '__main__':
     # customer.return_home_page()
 
     customer.enter_wechat_official_account('武汉珈研')
-    for _ in range(50):
+    for _ in range(100):
         customer.enter_applet()
 
 

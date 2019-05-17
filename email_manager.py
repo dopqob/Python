@@ -22,7 +22,7 @@ class EmailManager(object):
     mail_cfgs = {'msg_from': '1551658080@qq.com',  # 发送邮箱
                  # 'password': 'latimgqpunpgcbeb',  # 邮箱密码（授权码 30884413）
                  'password': 'wbawewprwmlthffa',  # 邮箱密码（授权码 1551658080）
-                 'msg_to': ['30884413@qq.com', '493519560@qq.com'],  # 接收邮箱
+                 'msg_to': ['30884413@qq.com'],  # 接收邮箱
                  'msg_cc': ['1335150450@qq.com'],  # 抄送邮箱
                  'msg_subject': 'APP测试报告',  # 邮件主题
                  # 'msg_content': 'Hi, boy! Just do it, python!',  # 邮件内容

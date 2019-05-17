@@ -66,6 +66,7 @@ class Common(BaseView):
             for e in elements:
                 if e.text == account_name:
                     e.click()
+                    time.sleep(0.5)
                     break
             else:
                 logging.warning('消息列表没有该公众号')
@@ -81,7 +82,7 @@ class Common(BaseView):
         # self.driver.find_elements_by_id(app_id)[0].click()   # Vivo x9
         self.swich_webview(self.h5_context)  # 切换到h5视图
         # self.select_accout('华中科技')  # 选择账套
-        time.sleep(1)
+        time.sleep(3)
 
     @screenshot_error
     def enter_qywx_applet(self, app_name):
@@ -172,8 +173,9 @@ class Common(BaseView):
 
         customers = self.driver.find_elements_by_xpath('//*[@id="customerList"]/div')  # 获取当前页客户
         if customers:
-            customers[random.randint(0, len(customers)-1)].click()  # 随机选一个用户
-            time.sleep(1)
+            # customers[random.randint(0, len(customers)-1)].click()  # 随机选一个用户
+            random.choice(customers).click()  # 随机选一个用户
+            time.sleep(3)
         else:
             logging.warning('没有客户，请先添加客户')
 
@@ -187,7 +189,7 @@ class Common(BaseView):
         location = self.driver.find_element_by_id('location-span')
         if location.text == '请手动刷新定位':
             self.driver.find_element_by_id('refresh').click()  # 刷新定位
-            time.sleep(3)
+            time.sleep(2)
 
         time.sleep(1)
         # 如果出现定位失败弹窗，点击确定，并刷新定位
@@ -237,12 +239,15 @@ class Common(BaseView):
         logging.info('========== take_photo ==========')
 
         for i in range(random.randint(1, 5)):
+        # for i in range(5):
             self.driver.find_element_by_class_name('picture1BtnId').click()
+            time.sleep(1)
 
             self.swich_webview(self.context)  # 切换到微信视图控制相机拍照
             # self.driver.find_element_by_id('com.android.gallery3d:id/shutter_button').click() # Meizu MX3
             # self.driver.find_element_by_id('com.android.gallery3d:id/image_capture_done_img').click() # Meizu MX3
             self.driver.find_element_by_id('com.android.camera:id/shutter_button').click()  # Vivo x9 拍照
+            time.sleep(1)
             self.driver.find_element_by_id('com.android.camera:id/done_button').click()  # Vivo x9 确定
             if not flag:    # 企业微信上传图片二次确认按钮
                 self.driver.find_element_by_id('com.tencent.wework:id/e2v').click()
@@ -257,6 +262,7 @@ class Common(BaseView):
         for i in range(random.randint(1, 4)):
             # for i in range(4):
             self.driver.find_element_by_class_name('picture1BtnId').click()
+            time.sleep(0.5)
             self.swich_webview(self.context)  # 切换到NATIVE_APP视图控制照片选择
 
             # 企业微信多两个步骤
@@ -267,11 +273,13 @@ class Common(BaseView):
                     '//android.widget.ImageButton[@content-desc="显示根目录"]').click()
 
             self.driver.find_elements_by_id('vivo:id/text1')[-1].click()
-            width = self.driver.get_window_size().get('width')  # 获取屏幕宽度
-            height = self.driver.get_window_size().get('height')  # 获取屏幕高度
-            self.driver.tap([(width * 0.9, height * 0.4), ])
+            time.sleep(1)
+            # width = self.driver.get_window_size().get('width')  # 获取屏幕宽度
+            # height = self.driver.get_window_size().get('height')  # 获取屏幕高度
+            # self.driver.tap([(width * 0.9, height * 0.4), ])
             photos = self.driver.find_elements_by_id('com.android.documentsui:id/thumbnail')
-            photos[random.randint(0, len(photos)-1)].click()
+            # photos[random.randint(0, len(photos)-1)].click()
+            random.choice(photos).click()
             time.sleep(3)  # 等待图片上传完成
 
             self.driver.switch_to.context(self.h5_context)  # 切换到H5视图继续操作

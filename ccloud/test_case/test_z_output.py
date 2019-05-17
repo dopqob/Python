@@ -13,7 +13,7 @@ from ccloud.businessView.output import Output
 class OutputTest(StartEnd):
     """APP端出库"""
 
-    def test_single_output(self):
+    def test_a_single_output(self):
         """单笔出库"""
         logging.info('******************** 单笔出库 ********************')
         o = Output(self.driver)
